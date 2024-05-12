@@ -28,4 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/faculties/{university}', function ($university) {
+    $faculties = \App\Models\University::find($university)->faculties;
+    return response()->json($faculties);
+});
+
 require __DIR__.'/auth.php';
