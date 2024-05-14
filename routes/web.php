@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TextbookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,5 @@ Route::get('/faculties/{university}', function ($university) {
     return response()->json($faculties);
 });
 
+Route::resource('textbooks', TextbookController::class);
 require __DIR__.'/auth.php';

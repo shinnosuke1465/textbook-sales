@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faculties', function (Blueprint $table) {
+        Schema::create('item_conditions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('university_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->string('name');
+            $table->integer('sort_no');
             $table->timestamps();
         });
     }
@@ -27,7 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('textbooks');  //外部キー制約をかけているため先にtextbooksを削除
-        Schema::dropIfExists('faculties');
+        Schema::dropIfExists('item_conditions');
     }
 };

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -56,14 +57,13 @@ class User extends Authenticatable
         return $this->belongsTo(University::class);
     }
 
-    public function scopeSelectFaculty($query, $categoryId)
+    public function soldTextbooks()
     {
-        //もしカテゴリーを選んでいたら
-        if ($categoryId !== '0') {
-            //カテゴリーidで条件指定する
-            return $query->where('secondary_category_id', $categoryId);
-        } else {
-            return;
-        }
+        return $this->hasMany(Textbook::class, 'seller_id');
+    }
+
+    public function boughtTextbooks()
+    {
+        return $this->hasMany(Textbook::class, 'buyer_id');
     }
 }
