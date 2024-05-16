@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Faculty;
+use App\Models\ItemCondition;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UniversitySeeder::class,
             FacultySeeder::class,
+            FacultySeeder::class,
+            ItemConditionSeeder::class,
         ]);
     }
 }
