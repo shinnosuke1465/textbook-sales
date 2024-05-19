@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TextbookController;
-
+use App\Http\Controllers\MyPage\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,11 +22,14 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::prefix('mypage')
+    ->middleware('auth')
+    ->namespace('MyPage')
+    ->group(function () {
+        Route::get('edit-profile', [ProfileController::class, 'showProfileEditForm'])->name('mypage.edit-profile');
+        Route::post('edit-profile', [ProfileController::class,'editProfile'])->name('mypage.edit-profile');
+        Route::get('bought-items', [BoughtItemsController::class,'showBoughtItems'])->name('mypage.bought-items');
+    });
 
 Route::get('/faculties/{university}', function ($university) {
     $faculties = \App\Models\University::find($university)->faculties;

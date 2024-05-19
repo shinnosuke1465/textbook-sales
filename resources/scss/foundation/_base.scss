@@ -1,0 +1,41 @@
+/*
+---------------------------------------
+foundation base
+---------------------------------------
+* 全体に適用するstyleを記述してください。
+* タグセレクターしか書いてはいけません。
+*/
+// @use "../global/mixins/font_base" as fb;
+// base font
+
+html {
+  @apply scroll-pt-20;
+}
+
+// body {
+//   @include fb.font-base();
+// }
+
+img {
+  @apply object-cover w-full;
+}
+
+iframe {
+  @apply w-full;
+}
+
+svg {
+  @apply w-full;
+}
+
+a {
+  @apply no-underline;
+}
+
+ul {
+  @apply list-none;
+}
+
+li {
+  @apply list-none;
+}

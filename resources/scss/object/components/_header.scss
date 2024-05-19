@@ -1,0 +1,37 @@
+.c-header{
+    @apply fixed z-30 top-0 left-0 w-full flex items-center justify-between lg:px-10 px-[7.2%] lg:h-20 h-16 bg-white;
+    border-bottom: 1px solid;
+
+    &__logo{
+        @apply w-32;
+    }
+
+    &__item{
+       @apply flex items-center relative;
+    }
+
+    &__anchor{
+        @apply flex items-center;
+    }
+
+    &__image{
+        @apply w-9 h-9 rounded-full;
+    }
+
+}
+
+.c-header-drop{
+    @apply origin-top-right top-10 -left-12 lg:-left-20 absolute rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white hidden w-44;
+
+    &__content{
+        @apply py-1 flex flex-col;
+    }
+
+    &__item{
+        @apply px-2 py-2;
+
+        & > i{
+            @apply w-8 text-left;
+        }
+    }
+}
