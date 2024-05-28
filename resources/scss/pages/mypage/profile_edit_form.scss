@@ -1,0 +1,48 @@
+.pg-profile
+{
+    @apply lg:pt-20 pt-16;
+}
+
+.pg-profile-form {
+    @apply max-w-[32rem] mx-auto;
+
+    &__avatar{
+        @apply flex items-center flex-row-reverse justify-between flex-wrap mt-8;
+        & > label{
+            @apply w-36 h-36 inline-block;
+        }
+    }
+
+    &__avatar-image{
+        & > .userImgPreview{
+            & > img{
+                @apply rounded-full;
+                object-fit: fill;
+                aspect-ratio: 1 / 1;
+            }
+        }
+    }
+    &__avatar-text{
+        @apply text-sm font-bold w-full;
+    }
+
+    &__name{
+        @apply flex flex-col gap-1 mt-16;
+        & > label{
+            @apply text-sm font-bold;
+        }
+
+        & > input{
+            @apply rounded;
+            border: 1px solid gray;
+        }
+    }
+
+    &__button{
+        @apply w-full h-11 bg-blue-400 rounded mt-10 flex items-center justify-center;
+
+        & > button{
+            @apply text-white font-bold;
+        }
+    }
+}

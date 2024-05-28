@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div id="profile-edit-form" class="container">
+    <section class="pg-profile">
         <div class="row">
             <div class="col-8 offset-2">
                 @if (session('status'))
@@ -16,24 +16,28 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="pg-profile__content">
             <div class="col-8 offset-2 bg-white">
 
-                <div class="font-weight-bold text-center border-bottom pb-3 pt-3" style="font-size: 24px">プロフィール編集</div>
+                <div class="pg-profile__title font-weight-bold text-center border-bottom pb-3 pt-3" style="font-size: 24px">プロフィール編集</div>
 
-                <form method="POST" action="{{ route('mypage.edit-profile') }}" class="p-5" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('mypage.edit-profile') }}" class="pg-profile-form" enctype="multipart/form-data">
                     @csrf
 
                     {{-- アバター画像 --}}
-                    {{-- <span class="avatar-form image-picker">
+                    <span class="pg-profile-form__avatar image-picker js-userImgPreview">
+                        <p class="pg-profile-form__avatar-text">画像</p>
                         <input type="file" name="avatar" class="d-none" accept="image/png,image/jpeg,image/gif" id="avatar" />
-                        <label for="avatar" class="d-inline-block">
-                          <x-thumbnail :filename="$user->avatar_file_name" type="images" />
+                        <label for="avatar" class="pg-profile-form__avatar-image">
+                            @include('components.thumbnail', [
+                                'type' => 'images',
+                                'filename' => $user->avatar_file_name,
+                                ])
                         </label>
-                    </span> --}}
+                    </span>
 
                     {{-- ニックネーム --}}
-                    <div class="form-group mt-3">
+                    <div class="pg-profile-form__name">
                         <label for="name">ニックネーム</label>
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus>
                         @error('name')
@@ -43,13 +47,11 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-0 mt-3">
-                        <button type="submit" class="btn btn-block btn-secondary">
-                            保存
-                        </button>
-                    </div>
+                    <button type="submit" class="pg-profile-form__button">
+                        保存
+                    </button>
                 </form>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

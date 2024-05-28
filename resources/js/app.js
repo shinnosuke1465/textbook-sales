@@ -4,3 +4,4 @@ window.$ = window.jQuery = $;
 import './bootstrap';
 import './register';
 import './drop';
+import './user';

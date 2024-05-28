@@ -15,7 +15,11 @@
     }
 
     &__image{
-        @apply w-9 h-9 rounded-full;
+        @apply w-9 h-9;
+
+        & > img{
+            @apply rounded-full;
+        }
     }
 
 }
