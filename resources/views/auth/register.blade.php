@@ -28,6 +28,7 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
+        {{-- 大学選択 --}}
         <label for="university_id" class="leading-7 text-sm text-gray-600">大学</label>
         <select name="university_id" id="university_id"
             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -39,6 +40,7 @@
             @endforeach
         </select>
 
+        {{-- 学部選択 --}}
         <label for="faculty_id" class="leading-7 text-sm text-gray-600">学部</label>
         <select name="faculty_id" id="faculty_id"
             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">

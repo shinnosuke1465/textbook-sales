@@ -25,7 +25,7 @@
 }
 
 .c-header-drop{
-    @apply origin-top-right top-10 -left-12 lg:-left-20 absolute rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white hidden w-44;
+    @apply origin-top-right top-10 -left-24 lg:-left-24 absolute rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white hidden w-48;
 
     &__content{
         @apply py-1 flex flex-col;

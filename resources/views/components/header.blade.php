@@ -1,3 +1,35 @@
+@php
+$header_items = [
+    [
+        'label' => '会員登録',
+        'href' => route('register'),
+    ],
+    [
+        'label' => 'ログイン',
+        'href' => route('login'),
+    ],
+];
+
+$user_items = [
+    [
+        'label' => 'プロフィール編集',
+        'href' => route('mypage.edit-profile'),
+        'icon'  => 'far fa-address-card'
+    ],
+    [
+        'label' => '商品を出品する',
+        'href' => route('textbooks.create'),
+        'icon'  => 'fas fa-camera'
+    ],
+    [
+        'label' => 'ログアウト',
+        'href'  => route('logout'),
+        'icon'  => 'fas fa-sign-out-alt',
+        'onclick' => "event.preventDefault(); document.getElementById('logout-form').submit();"
+    ],
+];
+@endphp
+
 <header class="c-header">
     <a class="c-header__logo" href="{{ url('/dashboard') }}">
         <img src="/images/logo-1.png" alt="">
@@ -5,18 +37,6 @@
 
     <nav class="c-header__navigation" id="navbarSupportedContent">
         <ul class="c-header__list">
-            @php
-                $header_items = [
-                    [
-                        'label' => '会員登録',
-                        'href' => route('register'),
-                    ],
-                    [
-                        'label' => 'ログイン',
-                        'href' => route('login'),
-                    ],
-                ];
-            @endphp
             @guest
                 {{-- 非ログイン --}}
                 @foreach ($header_items as $item)
@@ -28,7 +48,8 @@
                 {{-- ログイン済み --}}
                 <li class="c-header__item">
                     {{-- ログイン情報 --}}
-                    <a class="c-header__anchor nav-link js-drop-target" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a class="c-header__anchor nav-link js-drop-target" href="#" role="button" aria-haspopup="true"
+                        aria-expanded="false" v-pre>
                         @if (!empty($user->avatar_file_name))
                             <figure class="c-header__image">
                                 <img src="{{ asset('storage/images/' . $user->avatar_file_name) }}">
@@ -42,15 +63,12 @@
                     </a>
                     <div class="c-header-drop js-drop">
                         <div class="c-header-drop__content" role="none">
-                            <!-- アイテム -->
-                            <a class="c-header-drop__item" role="menuitem" href="{{ route('mypage.edit-profile') }}">
-                                <i class="far fa-address-card"></i> プロフィール編集
-                            </a>
-
-                            <a class="c-header-drop__item" role="menuitem" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt"></i>ログアウト
-                            </a>
+                            @foreach ($user_items as $item)
+                                <a class="c-header-drop__item" role="menuitem" href="{{ $item['href'] }}"
+                                    @if (isset($item['onclick'])) onclick="{{ $item['onclick'] }}" @endif>
+                                    <i class="{{ $item['icon'] }}"></i> {{ $item['label'] }}
+                                </a>
+                            @endforeach
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

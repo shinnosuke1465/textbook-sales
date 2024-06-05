@@ -22,6 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+//プロフィール
 Route::prefix('mypage')
     ->middleware('auth')
     ->namespace('MyPage')
@@ -31,10 +32,13 @@ Route::prefix('mypage')
         Route::get('bought-items', [BoughtItemsController::class,'showBoughtItems'])->name('mypage.bought-items');
     });
 
+//登録画面の実装
 Route::get('/faculties/{university}', function ($university) {
     $faculties = \App\Models\University::find($university)->faculties;
     return response()->json($faculties);
 });
 
-Route::resource('textbooks', TextbookController::class);
+//教科書の処理
+Route::resource('textbooks', TextbookController::class)->middleware('auth')->except(['show','index']);
+
 require __DIR__.'/auth.php';

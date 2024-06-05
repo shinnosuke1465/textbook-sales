@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedInteger('price'); //unsignedInteger..マイナス設定ができない
             $table->string('state');  //販売中・soldoutの判断
             $table->integer('sort_order')->nullable();  //商品の表示順
-            $table->boolean('is_selling');  //販売・販売停止にできる
-            $table->foreignId('buyer_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('is_selling')->nullable();  //販売・販売停止にできる
+            $table->foreignId('buyer_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('seller_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('university_id')->constrained()->onUpdate('cascade')->onDelete('cascade'); //外部キー制約
             $table->foreignId('faculty_id')->constrained()->onUpdate('cascade')->onDelete('cascade'); //外部キー制約

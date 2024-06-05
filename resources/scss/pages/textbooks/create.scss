@@ -1,0 +1,106 @@
+.pg-textbook-create-form {
+    @apply max-w-[32rem] mx-auto;
+
+    // 共通のスタイル
+    .common-container {
+        @apply flex flex-col gap-1 mt-8;
+    }
+
+    .common-label {
+        @apply text-sm font-bold;
+    }
+
+    &__image{
+        @apply w-32 h-32 bg-gray-100;
+        & > img{
+            @apply object-contain;
+            aspect-ratio: 1 / 1;
+        }
+    }
+
+    &__images{
+    @apply flex flex-wrap;
+    }
+
+    &__name {
+        @extend .common-container;
+
+        &>label {
+            @extend .common-label;
+        }
+
+        &>input {
+            @apply rounded;
+            border: 1px solid gray;
+        }
+    }
+
+    &__description {
+        @extend .common-container;
+
+        &>label {
+            @extend .common-label;
+        }
+
+        &>textarea {
+            @apply rounded;
+            border: 1px solid gray;
+        }
+    }
+
+    &__university {
+        @extend .common-container;
+
+        &>label {
+            @extend .common-label;
+            @apply text-black;
+        }
+
+        &>select {
+            @apply rounded bg-white;
+            border: 1px solid gray;
+        }
+    }
+
+    &__faculty {
+        @extend .common-container;
+
+        &>label {
+            @extend .common-label;
+            @apply text-black;
+        }
+
+        &>select {
+            @apply rounded bg-white;
+            border: 1px solid gray;
+        }
+    }
+
+    &__condition {
+        @extend .common-container;
+
+        &>label {
+            @extend .common-label;
+            @apply text-black;
+        }
+
+        &>select {
+            @apply rounded;
+            border: 1px solid gray;
+        }
+    }
+
+    &__price {
+        @extend .common-container;
+
+        &>label {
+            @extend .common-label;
+            @apply text-black;
+        }
+
+        &>input {
+            @apply rounded;
+            border: 1px solid gray;
+        }
+    }
+}
