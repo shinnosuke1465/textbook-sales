@@ -31,7 +31,7 @@ $user_items = [
 @endphp
 
 <header class="c-header">
-    <a class="c-header__logo" href="{{ url('/dashboard') }}">
+    <a class="c-header__logo" href="{{route('top')}}">
         <img src="/images/logo-1.png" alt="">
     </a>
 

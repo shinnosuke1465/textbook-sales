@@ -1,0 +1,21 @@
+@extends('layouts.app')
+
+@section('title')
+    商品一覧
+@endsection
+
+@section('content')
+    <div class="pg-textbook">
+        @include('components.headline_base', [
+                'title' => '商品一覧',
+            ])
+        <ul class="pg-textbook__list">
+            @foreach ($textbooks as $textbook)
+                @include('textbooks._list_item')
+            @endforeach
+        </ul>
+        <div class="flex justify-center">
+            {{ $textbooks->links() }}
+        </div>
+    </div>
+@endsection

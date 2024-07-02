@@ -1,0 +1,22 @@
+// コンテンツ幅
+
+@mixin u-sp-contents-padding {
+    @apply px-[7%] lg:px-0;
+}
+
+@mixin u-512px-contents-width{
+    @apply max-w-[32rem] mx-auto;
+}
+
+@mixin u-1000px-contents-width {
+    @apply lg:px-[5%] xl:px-0 xl:max-w-[62.5rem] xl:mx-auto;
+}
+
+@mixin u-1200px-contents-width {
+    @apply max-w-[75rem] mx-auto;
+}
+
+
+@mixin u-1600px-contents-width {
+    @apply 4xl:max-w-[100rem] 4xl:mx-auto;
+}

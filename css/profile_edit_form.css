@@ -1,6 +1,3 @@
-.pg-profile-form {
-  @apply max-w-[32rem] mx-auto;
-}
 .pg-profile-form__avatar {
   @apply flex items-center flex-row-reverse justify-between flex-wrap mt-8;
 }

@@ -14,9 +14,7 @@ use App\Http\Controllers\MyPage\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TextbookController::class, 'index'])->name('top');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -39,6 +37,6 @@ Route::get('/faculties/{university}', function ($university) {
 });
 
 //教科書の処理
-Route::resource('textbooks', TextbookController::class)->middleware('auth')->except(['show','index']);
+Route::resource('textbooks', TextbookController::class)->middleware('auth')->except('show');
 
 require __DIR__.'/auth.php';

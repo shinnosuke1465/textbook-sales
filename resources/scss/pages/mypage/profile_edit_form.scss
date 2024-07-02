@@ -1,5 +1,7 @@
+@use "../../object/utility/contents_style" as *;
+
 .pg-profile-form {
-    @apply max-w-[32rem] mx-auto;
+    @include u-512px-contents-width;
 
     &__avatar{
         @apply flex items-center flex-row-reverse justify-between flex-wrap mt-8;

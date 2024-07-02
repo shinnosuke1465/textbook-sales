@@ -1,5 +1,7 @@
+@use "../../object/utility/contents_style" as *;
+
 .pg-textbook-create-form {
-    @apply max-w-[32rem] mx-auto;
+    @include u-512px-contents-width;
 
     // 共通のスタイル
     .common-container {

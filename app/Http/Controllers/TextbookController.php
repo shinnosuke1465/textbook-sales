@@ -13,6 +13,21 @@ use DB;
 
 class TextbookController extends Controller
 {
+    public function index()
+    {
+
+        //orderByRawメソッド...ORDER BY句のSQLを直接記述することが可能。メソッドの中身のsqlを展開すると以下のようになる
+        //ORDER BY FIELD(state, 'selling', 'bought')
+        //FIELDはSQLの関数で、第一引数で指定した値が第二引数以降の何番目に該当するかを返えす
+        //stateがsellingの場合は1、boughtの場合は2を返しており、これを昇順で並べ替えることで、出品中(selling)の商品が先に、購入済み(bought)の商品が後になるようにソートされ
+        $textbooks = Textbook::with(['university', 'faculty'])->orderByRaw("FIELD(state, '" . Textbook::STATE_SELLING . "', '" . Textbook::STATE_BOUGHT . "')")
+            //出品中の商品と購入済みの商品の中でさらにidの降順（最近出品された順）で並べ替え
+            ->orderBy('id', 'DESC')
+            ->paginate(5);
+
+        return view('textbooks.index')
+            ->with('textbooks', $textbooks);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -63,8 +78,8 @@ class TextbookController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('textbooks.create')->with([
-                    'message' => '登録エラー：登録時にエラーが発生しました。少し時間をおいてから再度お試しください。','status' => 'alert',
-                ]);
+                'message' => '登録エラー：登録時にエラーが発生しました。少し時間をおいてから再度お試しください。', 'status' => 'alert',
+            ]);
         }
     }
 
