@@ -1,0 +1,43 @@
+@use "../../object/utility/contents_style" as *;
+
+.pg-sold-items {
+    @include u-1200px-contents-width;
+    @include u-sp-contents-padding;
+    @apply pt-16;
+
+    &__content {
+        @apply flex flex-col gap-6;
+    }
+}
+
+.c-sold-item {
+    @apply flex border gap-4;
+
+    &__text-area {
+        @apply py-3;
+    }
+
+    &__image-area{
+        @apply w-[200px] h-[200px];
+    }
+
+    &__info{
+        @apply flex gap-3 items-center;
+    }
+
+    &__info-state {
+        @apply bg-green-500 text-white text-sm font-semibold px-2 py-1 rounded-full;
+    }
+
+    &__info-sell {
+        @apply bg-gray-800 text-white text-sm font-semibold px-2 py-1 rounded-full;
+    }
+
+    &__title{
+        @apply mt-2 font-bold text-2xl;
+    }
+
+    &__price{
+        @apply mt-4;
+    }
+}

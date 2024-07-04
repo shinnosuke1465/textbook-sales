@@ -88,7 +88,7 @@ class TextbookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $textbook = Textbook::findOrFail($id);
     }
 
     /**

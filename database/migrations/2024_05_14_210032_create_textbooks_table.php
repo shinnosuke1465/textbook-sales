@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('image_file_name')->nullable();
             $table->text('description');
             $table->unsignedInteger('price'); //unsignedInteger..マイナス設定ができない
-            $table->string('state');  //販売中・soldoutの判断
+            $table->string('state');  //販売中・売却済みの判断
             $table->integer('sort_order')->nullable();  //商品の表示順
             $table->boolean('is_selling')->nullable();  //販売・販売停止にできる
             $table->foreignId('buyer_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');

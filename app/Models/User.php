@@ -60,6 +60,7 @@ class User extends Authenticatable
 
     public function soldTextbooks()
     {
+        //1対多のリレーション(自分が1に対して出品している教科書多)
         return $this->hasMany(Textbook::class, 'seller_id');
     }
 

@@ -11,7 +11,7 @@
     }
 
     &__avatar-image{
-        & > .userImgPreview{
+        & > .c-thumbnail{
             & > img{
                 @apply rounded-full;
                 object-fit: fill;

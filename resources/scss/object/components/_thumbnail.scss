@@ -1,0 +1,7 @@
+.c-thumbnail  {
+    @apply w-full h-full;
+}
+
+.c-thumbnail-no_image{
+    @apply h-full object-contain;
+}

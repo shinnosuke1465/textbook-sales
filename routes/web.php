@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TextbookController;
 use App\Http\Controllers\MyPage\ProfileController;
+use App\Http\Controllers\MyPage\SoldItemsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,8 @@ Route::prefix('mypage')
     ->group(function () {
         Route::get('edit-profile', [ProfileController::class, 'showProfileEditForm'])->name('mypage.edit-profile');
         Route::post('edit-profile', [ProfileController::class,'editProfile'])->name('mypage.edit-profile');
-        Route::get('bought-items', [BoughtItemsController::class,'showBoughtItems'])->name('mypage.bought-items');
+        //出品した教科書一覧画面
+        Route::get('sold-items', [SoldItemscontroller::class,'showSoldItems'])->name('mypage.sold-items');
     });
 
 //登録画面の実装
@@ -38,5 +40,6 @@ Route::get('/faculties/{university}', function ($university) {
 
 //教科書の処理
 Route::resource('textbooks', TextbookController::class)->middleware('auth')->except('show');
+
 
 require __DIR__.'/auth.php';

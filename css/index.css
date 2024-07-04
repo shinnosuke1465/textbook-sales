@@ -32,3 +32,6 @@
 .c-textbook-list-item__label-text {
   @apply absolute text-lg top-[calc(-5px)] left-[calc(-5px)] rotate-[-45deg] text-white font-bold sm:top-[-8px] md:text-xs lg:top-[12px] lg:left-[7px] lg:text-lg xl:text-xl;
 }
+.c-textbook-list-item__image-area {
+  @apply w-[225px] h-[225px];
+}
