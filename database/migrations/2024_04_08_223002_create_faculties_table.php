@@ -28,6 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('textbooks');  //外部キー制約をかけているため先にtextbooksを削除
+        Schema::dropIfExists('users');  //外部キー制約をかけているため先にusersを削除
         Schema::dropIfExists('faculties');
     }
 };

@@ -22,7 +22,7 @@ $user_items = [
         'icon'  => 'fas fa-camera'
     ],
     [
-        'label' => '商品した商品',
+        'label' => '出品した商品',
         'href' => route('mypage.sold-items'),
         'icon'  => 'fas fa-store-alt'
     ],

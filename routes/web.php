@@ -32,7 +32,7 @@ Route::prefix('mypage')
         Route::get('sold-items', [SoldItemscontroller::class,'showSoldItems'])->name('mypage.sold-items');
     });
 
-//登録画面の実装
+//大学と学部のセレクトボックスの実装
 Route::get('/faculties/{university}', function ($university) {
     $faculties = \App\Models\University::find($university)->faculties;
     return response()->json($faculties);

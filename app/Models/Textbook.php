@@ -65,4 +65,9 @@ class Textbook extends Model
      {
          return $this->state === self::STATE_BOUGHT;
      }
+
+     public function stock()
+     {
+        return $this->hasOne(Stock::class);
+     }
 }

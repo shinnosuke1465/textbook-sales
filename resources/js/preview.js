@@ -23,13 +23,16 @@ $(document).on("change", "#avatar", function (e) {
     }
 });
 
-//textbookというIDを持つ要素が変更されたとき関数が呼ばれる
 $(document).on("change", "#textbook", function (e) {
     const previewContainer = $(".js-userImgPreview");
 
-    //ファイル入力フィールドに現在選択されているファイルを取得
-    //Array.from を使用して、このファイルリストを配列に変換
+    //編集画面の画像の初期表示
+    // ファイル入力フィールドに現在選択されているファイルを取得
+    // Array.from を使用して、このファイルリストを配列に変換
     const files = Array.from(this.files);
+
+    // プレビューエリアをクリア
+    previewContainer.empty();
 
     if (files.length === 0) {
         // ファイルが選択されていない場合、プレビューエリアを空にする
@@ -39,10 +42,10 @@ $(document).on("change", "#textbook", function (e) {
     files.forEach((file) => {
         const reader = new FileReader();
 
-        //ファイルが読み込まれたときに実行される処理
+        // ファイルが読み込まれたときに実行される処理
         reader.onload = function (event) {
             const img = $("<img>")
-                .attr("src", event.target.result)//scrの値を読み込まれたファイルのデータURL設定
+                .attr("src", event.target.result) // srcの値を読み込まれたファイルのデータURLに設定
                 .addClass("img-thumbnail");
             const figure = $("<figure>")
                 .addClass("pg-textbook-create-form__image")
@@ -50,7 +53,7 @@ $(document).on("change", "#textbook", function (e) {
             previewContainer.append(figure);
         };
 
-        //reader.onload イベントがトリガーされ、ファイルが読み込まれた後に画像がプレビューとして表示
+        // reader.onload イベントがトリガーされ、ファイルが読み込まれた後に画像がプレビューとして表示
         reader.readAsDataURL(file);
     });
 });

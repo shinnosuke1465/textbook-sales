@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TextbookRequest;
 use Illuminate\Http\Request;
 use App\Models\ItemCondition;
+use App\Models\Stock;
 use App\Models\Textbook;
 use Illuminate\Support\Facades\Auth;
 use App\Models\University;
 use App\Services\ImageService;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 class TextbookController extends Controller
 {
@@ -18,8 +20,8 @@ class TextbookController extends Controller
 
         //orderByRawメソッド...ORDER BY句のSQLを直接記述することが可能。メソッドの中身のsqlを展開すると以下のようになる
         //ORDER BY FIELD(state, 'selling', 'bought')
-        //FIELDはSQLの関数で、第一引数で指定した値が第二引数以降の何番目に該当するかを返えす
-        //stateがsellingの場合は1、boughtの場合は2を返しており、これを昇順で並べ替えることで、出品中(selling)の商品が先に、購入済み(bought)の商品が後になるようにソートされ
+            //FIELDはSQLの関数で、第一引数で指定した値が第二引数以降の何番目に該当するかを返えす
+            //stateがsellingの場合は1、boughtの場合は2を返しており、これを昇順で並べ替えることで、出品中(selling)の商品が先に、購入済み(bought)の商品が後になるようにソートされ
         $textbooks = Textbook::with(['university', 'faculty'])->orderByRaw("FIELD(state, '" . Textbook::STATE_SELLING . "', '" . Textbook::STATE_BOUGHT . "')")
             //出品中の商品と購入済みの商品の中でさらにidの降順（最近出品された順）で並べ替え
             ->orderBy('id', 'DESC')
@@ -71,12 +73,21 @@ class TextbookController extends Controller
             $item->university_id = $request->input('university_id');
             $item->faculty_id = $request->input('faculty_id');
             $item->item_condition_id = $request->input('condition');
+
+            // ここで一度アイテムを保存して、IDを取得する
             $item->save();
+
+            // 在庫テーブルに在庫を登録する
+            Stock::create([
+                'textbook_id' => $item->id,
+                'quantity' => 1  // 初期在庫数を1に設定
+            ]);
 
             DB::commit();
             return redirect()->route('textbooks.create')->with(['message' => '商品を出品しました。', 'status' => 'info']);
         } catch (\Exception $e) {
             DB::rollback();
+            Log::error('Error during textbook creation: ' . $e->getMessage());
             return redirect()->route('textbooks.create')->with([
                 'message' => '登録エラー：登録時にエラーが発生しました。少し時間をおいてから再度お試しください。', 'status' => 'alert',
             ]);
@@ -88,15 +99,66 @@ class TextbookController extends Controller
      */
     public function edit(string $id)
     {
-        $textbook = Textbook::findOrFail($id);
+        //idに紐づく情報をtextbookテーブルから取得
+        $textbook = Textbook::with(['university', 'faculty', 'condition'])->findOrFail($id);
+
+        //universitiesテーブルと外部キー制約であるfacultiesテーブルも同時に取得
+        $universities = University::with('faculties')->get();
+
+        //商品の状態は sort_no の順に並べ替えられる
+        $conditions = ItemCondition::orderBy('sort_no')->get();
+
+        return view('textbooks.edit', compact('textbook', 'universities', 'conditions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TextbookRequest $request, string $id)
     {
-        //
+        $textbook = Textbook::findOrFail($id);
+        $user = Auth::user();
+
+        DB::beginTransaction();
+        try{
+            //在庫数のチェック。楽観的ロック（編集中に商品が買われていないか）
+            $currentStock = Stock::where('textbook_id', $textbook->id)->first();
+
+            if ($currentStock->quantity != 1){
+                return redirect()->route('textbooks.edit', ['textbook' => $id])->with(['message' => '在庫数が変更されています。再度確認してください', 'status' => 'alert']);
+            }
+
+             // 画像ファイル取得
+             $imageFile = $request->file('textbook_image');
+             if (!is_null($imageFile) && $imageFile->isValid()) {
+                 // 画像とフォルダ名を渡す
+                 $fileNameToStore = ImageService::upload($imageFile, 'textbooks');
+                 $user->image_file_name = $fileNameToStore;
+             }
+
+            $textbook->name = $request->input('name');
+            if(!is_null($imageFile)) {
+                $textbook->image_file_name = $fileNameToStore;
+            }
+            $textbook->description = $request->input('description');
+            $textbook->price = $request->input('price');
+            $textbook->state = Textbook::STATE_SELLING;
+            $textbook->seller_id = $user->id;
+            $textbook->university_id = $request->input('university_id');
+            $textbook->faculty_id = $request->input('faculty_id');
+            $textbook->item_condition_id = $request->input('condition');
+            $textbook->save();
+
+
+            DB::commit();
+            return redirect()->route('textbooks.create')->with(['message' => '商品を更新しました。', 'status' => 'info']);
+
+        } catch (\Exception $e){
+            DB::rollback();
+            return redirect()->route('textbooks.edit')->with([
+                'message' => '登録エラー：更新時にエラーが発生しました。少し時間をおいてから再度お試しください。', 'status' => 'alert',
+            ]);
+        }
     }
 
     /**
