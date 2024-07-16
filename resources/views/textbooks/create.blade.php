@@ -116,6 +116,7 @@
 
                 @include('components.button_base', [
                 'text' => '出品する',
+                'type' => 'create'
                 ])
             </form>
         </div>

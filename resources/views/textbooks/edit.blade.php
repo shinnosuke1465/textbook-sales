@@ -17,21 +17,22 @@
             @include('components.headline_base', [
                 'title' => '商品を編集する',
             ])
-            <form method="POST" action="{{ route('textbooks.update', $textbook->id) }}" class="pg-textbook-create-form" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('textbooks.update', $textbook->id) }}" class="pg-textbook-create-form"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 {{-- 商品画像 --}}
                 <div class="pg-textbook-create-form__textbook">
                     <p class="pg-textbook-create-form__textbook-text">画像</p>
-                    <input type="file" name="textbook_image"accept="image/png,image/jpeg,image/gif"
-                        id="textbook" />
+                    <input type="file" name="textbook_image"accept="image/png,image/jpeg,image/gif" id="textbook" />
                     <label for="textbook">
                         <div class="pg-textbook-create-form__images js-userImgPreview">
                             @if ($textbook->image_file_name)
-                            <figure class="pg-textbook-create-form__image">
-                                <img src="{{ asset('storage/textbooks/' . $textbook->image_file_name) }}" class="img-thumbnail" />
-                            </figure>
-                        @endif
+                                <figure class="pg-textbook-create-form__image">
+                                    <img src="{{ asset('storage/textbooks/' . $textbook->image_file_name) }}"
+                                        class="img-thumbnail" />
+                                </figure>
+                            @endif
                         </div>
                     </label>
                 </div>
@@ -122,7 +123,18 @@
                 </div>
 
                 @include('components.button_base', [
-                'text' => '変更する',
+                    'text' => '変更する',
+                    'type' => 'edit',
+                ])
+            </form>
+
+
+            <form id="delete_{{ $textbook->id }}" method="post" action="{{ route('textbooks.destroy', $textbook->id) }}">
+                @csrf
+                @method('delete')
+                @include('components.button_base', [
+                    'text' => '削除する',
+                    'type' => 'delete',
                 ])
             </form>
         </div>

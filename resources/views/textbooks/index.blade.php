@@ -5,10 +5,16 @@
 @endsection
 
 @section('content')
-    <div class="pg-textbook">
+<div class="pg-textbook">
+    <div class="row">
+        <div class="col-8 offset-2">
+            {{-- フラッシュメッセージ表示 --}}
+            <x-flash-message status="session('status')" />
+        </div>
+    </div>
         @include('components.headline_base', [
-                'title' => '商品一覧',
-            ])
+            'title' => '商品一覧',
+        ])
         <ul class="pg-textbook__list">
             @foreach ($textbooks as $textbook)
                 @include('textbooks._list_item')

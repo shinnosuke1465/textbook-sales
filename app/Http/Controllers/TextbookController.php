@@ -166,6 +166,8 @@ class TextbookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Textbook::findOrFail($id)->delete();
+
+        return redirect()->route('textbooks.index')->with(['message' => '商品を削除しました。', 'status' => 'alert']);
     }
 }
