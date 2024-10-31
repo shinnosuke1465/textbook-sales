@@ -52,6 +52,7 @@
 
                 @include('components.button_base', [
                 'text' => '保存',
+                'type' => 'edit'
                 ])
             </form>
         </div>
