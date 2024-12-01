@@ -1,0 +1,21 @@
+@use "../../object/utility/contents_style" as *;
+
+.pg-textbook-detail{
+    @apply pt-16;
+    &__content{
+        @include u-1200px-contents-width;
+        @apply flex flex-row gap-12 pt-28;
+    }
+
+    &__image{
+        @apply w-3/5 h-[500px];
+
+        img{
+            @apply h-full;
+        }
+    }
+
+    &__info{
+        @apply w-2/5;
+    }
+}

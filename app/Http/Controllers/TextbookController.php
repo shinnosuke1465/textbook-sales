@@ -30,6 +30,12 @@ class TextbookController extends Controller
         return view('textbooks.index')
             ->with('textbooks', $textbooks);
     }
+
+    public function show(Textbook $textbook)
+    {
+        return view('textbooks.detail')->with('item', $textbook);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

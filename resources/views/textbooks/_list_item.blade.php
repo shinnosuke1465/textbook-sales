@@ -1,5 +1,5 @@
 <li class="c-textbook-list-item">
-    <a class="c-textbook-list-item__anchor">
+    <a class="c-textbook-list-item__anchor" href="{{ route('textbooks.show', [$textbook->id]) }}">
         {{-- 商品画像 --}}
         <div class="c-textbook-list-item__image-area">
             <div class="c-textbook-list-item__image-area">

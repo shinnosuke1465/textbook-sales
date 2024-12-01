@@ -39,7 +39,7 @@ Route::get('/faculties/{university}', function ($university) {
 });
 
 //教科書の処理
-Route::resource('textbooks', TextbookController::class)->middleware('auth')->except('show');
+Route::resource('textbooks', TextbookController::class)->middleware('auth');
 
 
 require __DIR__.'/auth.php';
