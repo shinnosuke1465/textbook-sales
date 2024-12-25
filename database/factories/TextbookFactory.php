@@ -60,7 +60,6 @@ class TextbookFactory extends Factory
             'description' => $this->faker->paragraph, // 説明文を生成
             'price' => $this->faker->numberBetween(1000, 100000), // 価格を生成
             'state' => $state,
-            'sort_order' => null,
             'is_selling' => null,
             'buyer_id' => null,
             'seller_id' => $sellerId, // 出品者ID（新規ユーザーを生成）
@@ -68,6 +67,8 @@ class TextbookFactory extends Factory
             'faculty_id' => $facultyId, // 選択された大学に紐づく学部IDを使用
             'bought_at' => null,
             'item_condition_id' => $this->faker->numberBetween(1, 6),
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'), // 過去1年以内の日時を生成
+            'updated_at' => now(), // 現在の日時を設定
         ];
     }
 }

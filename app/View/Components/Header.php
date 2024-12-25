@@ -6,15 +6,20 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Models\University;
 
 class Header extends Component
 {
+
+    public $universities;
+
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+        // universities テーブルと faculties リレーションを取得
+        $this->universities = University::with('faculties')->get();
     }
 
     /**

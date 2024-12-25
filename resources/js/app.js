@@ -6,3 +6,5 @@ import './register';
 import './drop';
 import './preview';
 import './delete';
+import './selct';
+import './toggle';

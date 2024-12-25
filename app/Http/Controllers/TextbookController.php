@@ -15,20 +15,23 @@ use Illuminate\Support\Facades\Log;
 
 class TextbookController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
+        $query = Textbook::with(['university', 'faculty'])->sortOrder($request->sort);
 
-        //orderByRawメソッド...ORDER BY句のSQLを直接記述することが可能。メソッドの中身のsqlを展開すると以下のようになる
-        //ORDER BY FIELD(state, 'selling', 'bought')
-            //FIELDはSQLの関数で、第一引数で指定した値が第二引数以降の何番目に該当するかを返えす
-            //stateがsellingの場合は1、boughtの場合は2を返しており、これを昇順で並べ替えることで、出品中(selling)の商品が先に、購入済み(bought)の商品が後になるようにソートされ
-        $textbooks = Textbook::with(['university', 'faculty'])->orderByRaw("FIELD(state, '" . Textbook::STATE_SELLING . "', '" . Textbook::STATE_BOUGHT . "')")
-            //出品中の商品と購入済みの商品の中でさらにidの降順（最近出品された順）で並べ替え
-            ->orderBy('id', 'DESC')
-            ->paginate(5);
+        // キーワード検索を適用
+        if ($request->filled('keyword')) {
+            $query->searchKeyword($request->keyword);
+        }
 
-        return view('textbooks.index')
-            ->with('textbooks', $textbooks);
+        // ページネーションを適用
+        $textbooks = $query->paginate($request->pagination ?? '1');
+
+        // universitiesテーブルと外部キー制約であるfacultiesテーブルも同時に取得
+        $universities = University::with('faculties')->get();
+
+        return view('textbooks.index', compact('textbooks', 'universities'));
     }
 
     public function show(Textbook $textbook)
@@ -95,7 +98,8 @@ class TextbookController extends Controller
             DB::rollback();
             Log::error('Error during textbook creation: ' . $e->getMessage());
             return redirect()->route('textbooks.create')->with([
-                'message' => '登録エラー：登録時にエラーが発生しました。少し時間をおいてから再度お試しください。', 'status' => 'alert',
+                'message' => '登録エラー：登録時にエラーが発生しました。少し時間をおいてから再度お試しください。',
+                'status' => 'alert',
             ]);
         }
     }
@@ -126,24 +130,24 @@ class TextbookController extends Controller
         $user = Auth::user();
 
         DB::beginTransaction();
-        try{
+        try {
             //在庫数のチェック。楽観的ロック（編集中に商品が買われていないか）
             $currentStock = Stock::where('textbook_id', $textbook->id)->first();
 
-            if ($currentStock->quantity != 1){
+            if ($currentStock->quantity != 1) {
                 return redirect()->route('textbooks.edit', ['textbook' => $id])->with(['message' => '在庫数が変更されています。再度確認してください', 'status' => 'alert']);
             }
 
-             // 画像ファイル取得
-             $imageFile = $request->file('textbook_image');
-             if (!is_null($imageFile) && $imageFile->isValid()) {
-                 // 画像とフォルダ名を渡す
-                 $fileNameToStore = ImageService::upload($imageFile, 'textbooks');
-                 $user->image_file_name = $fileNameToStore;
-             }
+            // 画像ファイル取得
+            $imageFile = $request->file('textbook_image');
+            if (!is_null($imageFile) && $imageFile->isValid()) {
+                // 画像とフォルダ名を渡す
+                $fileNameToStore = ImageService::upload($imageFile, 'textbooks');
+                $user->image_file_name = $fileNameToStore;
+            }
 
             $textbook->name = $request->input('name');
-            if(!is_null($imageFile)) {
+            if (!is_null($imageFile)) {
                 $textbook->image_file_name = $fileNameToStore;
             }
             $textbook->description = $request->input('description');
@@ -158,11 +162,11 @@ class TextbookController extends Controller
 
             DB::commit();
             return redirect()->route('textbooks.create')->with(['message' => '商品を更新しました。', 'status' => 'info']);
-
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('textbooks.edit')->with([
-                'message' => '登録エラー：更新時にエラーが発生しました。少し時間をおいてから再度お試しください。', 'status' => 'alert',
+                'message' => '登録エラー：更新時にエラーが発生しました。少し時間をおいてから再度お試しください。',
+                'status' => 'alert',
             ]);
         }
     }

@@ -21,7 +21,10 @@
             @endforeach
         </ul>
         <div class="flex justify-center">
-            {{ $textbooks->links() }}
+            {{ $textbooks->appends([
+                'sort' => \Request::get('sort'),
+                'pagination' => \Request::get('pagination'),
+            ])->links() }}
         </div>
     </div>
 @endsection
