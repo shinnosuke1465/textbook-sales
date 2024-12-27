@@ -10,3 +10,4 @@ import './selct';
 import './toggle';
 import './universitySearch';
 import './headerResetButton';
+import './facultySearch';

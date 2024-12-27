@@ -43,6 +43,7 @@ Route::get('/faculties/{university}', function ($university) {
 
 Route::get('/university', [UniversityController::class, 'index'])->name('university');
 Route::get('/university/search', [UniversityController::class, 'search'])->name('university.search');
+Route::get('/faculty/search', [FacultyController::class, 'search'])->name('faculty.search');
 
 Route::get('/faculty', [FacultyController::class, 'index'])->name('faculty');
 

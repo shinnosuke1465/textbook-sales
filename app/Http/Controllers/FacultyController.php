@@ -3,19 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Textbook;
-use App\Models\University;
+use App\Models\Faculty;
 
 class FacultyController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
-        $textbooks = Textbook::with(['university', 'faculty']);
+        return view('faculty.index');
+    }
 
-        // universitiesテーブルと外部キー制約であるfacultiesテーブルも同時に取得
-        $universities = University::with('faculties')->get();
+    public function search(Request $request)
+    {
+        // キーワード検索を適用しつつ、学部名を重複排除
+        $faculties = Faculty::select('name')
+            ->when($request->filled('keyword'), function ($query) use ($request) {
+                $query->searchKeyword($request->input('keyword'));
+            })
+            ->distinct() // 重複する学部名を排除
+            ->get();
 
-        return view('faculty.index', compact('textbooks', 'universities'));
+        return response()->json($faculties);
     }
 }
