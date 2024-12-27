@@ -107,21 +107,26 @@ class Textbook extends Model
 
     public function scopeSearchKeyword($query, $keyword)
     {
-        if (!is_null($keyword)) {
-            //全角スペースを半角に
+        if (! is_null($keyword)) {
+            // 全角スペースを半角に変換
             $spaceConvert = mb_convert_kana($keyword, 's');
+            // キーワードを空白で分割
+            $keywords = preg_split('/\s+/', $spaceConvert, -1, PREG_SPLIT_NO_EMPTY);
 
-            //空白で区切る
-            $keywords = preg_split('/[\s]+/', $spaceConvert, -1, PREG_SPLIT_NO_EMPTY);
-
-            //単語をループで回す
+            // キーワードごとにAND条件を追加
             foreach ($keywords as $word) {
-                $query->where('name', 'like', '%' . $word . '%');
+                $query->where(function ($q) use ($word) {
+                    $q->where('name', 'like', "%{$word}%")                  // 教科書名
+                        ->orWhereHas('faculty', function ($q) use ($word) {
+                            $q->where('name', 'like', "%{$word}%");           // 学部名
+                        })
+                        ->orWhereHas('university', function ($q) use ($word) {
+                            $q->where('name', 'like', "%{$word}%");           // 大学名
+                        });
+                });
             }
-
-            return $query;
-        } else {
-            return;
         }
+
+        return $query;
     }
 }

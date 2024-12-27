@@ -56,15 +56,22 @@
             </select> --}}
 
             <div class="c-header-form__search">
-                <input name="keyword" class="c-header-form__input js-toggle__trigger" placeholder="キーワードを入力" autocomplete="off">
+
+                <div class="c-header-form__box">
+                    <input name="keyword" class="c-header-form__input js-toggle__trigger js-header-input" placeholder="キーワードを入力"
+                    autocomplete="off" value="{{ request('keyword') }}">
+                    <button class="c-header-form__reset js-reset-button" type="button" style="display: {{ request('keyword') ? 'flex' : 'none' }};">×</button>
+                </div>
                 <button class="c-header-form__button">検索</button>
                 <div class="c-header-form-toggle-wrapper js-toggle__target">
                     <ul class="c-header-form-toggle-wrapper-list">
                         <li class="c-header-form-toggle-wrapper-list-item">
-                            <a class="c-header-form-toggle-wrapper-list-item__anchor">大学から探す</a>
+                            <a href="{{ route('university') }}"
+                                class="c-header-form-toggle-wrapper-list-item__anchor">大学から探す</a>
                         </li>
                         <li class="c-header-form-toggle-wrapper-list-item">
-                            <a class="c-header-form-toggle-wrapper-list-item__anchor">学部・学科から探す</a>
+                            <a href="{{ route('faculty') }}"
+                                class="c-header-form-toggle-wrapper-list-item__anchor">学部から探す</a>
                         </li>
                     </ul>
                 </div>

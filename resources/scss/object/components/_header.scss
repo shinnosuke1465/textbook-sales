@@ -35,13 +35,21 @@
         @apply  flex space-x-2 items-center w-full max-w-[31rem] relative;
     }
 
-    &__input{
+    &__button{
+        @apply ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded h-10 flex w-24;
+    }
+
+    &__box{
         border: 1px solid;
+        @apply flex relative border-black w-full;
+    }
+
+    &__input{
         @apply border-gray-500 py-2 w-full;
     }
 
-    &__button{
-        @apply ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded h-10 flex w-24;
+    &__reset{
+        @apply rounded-full bg-gray-400 text-white w-6 h-6 items-center justify-center absolute top-2 right-2;
     }
 }
 

@@ -25,8 +25,13 @@ class TextbookController extends Controller
             $query->searchKeyword($request->keyword);
         }
 
+        // 大学IDでフィルタリング
+        if ($request->filled('university_id')) {
+            $query->where('university_id', $request->university_id);
+        }
+
         // ページネーションを適用
-        $textbooks = $query->paginate($request->pagination ?? '1');
+        $textbooks = $query->paginate($request->pagination ?? '10')->appends($request->query());
 
         // universitiesテーブルと外部キー制約であるfacultiesテーブルも同時に取得
         $universities = University::with('faculties')->get();
