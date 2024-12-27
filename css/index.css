@@ -1,28 +1,28 @@
-.pg-faculty-inner {
+.pg-item-inner {
   @apply max-w-[35.5rem] mx-auto;
   @apply px-[7%] lg:px-0;
   @apply flex justify-center flex-col;
 }
-.pg-faculty-inner__content {
+.pg-item-inner__content {
   border: 1px solid;
   @apply flex relative border-black;
 }
-.pg-faculty-inner__input {
+.pg-item-inner__input {
   @apply w-full;
 }
-.pg-faculty-inner__button {
+.pg-item-inner__button {
   @apply rounded-full bg-gray-400 text-white w-6 h-6 flex items-center justify-center absolute top-2 right-2 hidden;
 }
 
-.pg-faculty-inner-list {
+.pg-item-inner-list {
   border: 1px solid;
   @apply mt-5 h-80 overflow-y-scroll px-4 py-4 flex flex-col gap-4;
 }
 
-.pg-faculty-inner-list-item {
+.pg-item-inner-list-item {
   border-bottom: 1px solid;
   @apply pl-1 hover:opacity-60;
 }
-.pg-faculty-inner-list-item__anchor {
+.pg-item-inner-list-item__anchor {
   @apply w-full pb-4 block;
 }

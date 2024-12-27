@@ -25,9 +25,9 @@ class TextbookController extends Controller
             $query->searchKeyword($request->keyword);
         }
 
-        // 大学IDでフィルタリング
-        if ($request->filled('university_id')) {
-            $query->where('university_id', $request->university_id);
+        // 教科書IDでフィルタリング
+        if ($request->filled('textbook_id')) {
+            $query->where('id', $request->textbook_id);
         }
 
         // ページネーションを適用

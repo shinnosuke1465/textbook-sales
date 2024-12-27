@@ -11,3 +11,4 @@ import './toggle';
 import './universitySearch';
 import './headerResetButton';
 import './facultySearch';
+import './itemSearch';

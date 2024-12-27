@@ -1,6 +1,6 @@
 @use "../../object/utility/contents_style" as *;
 
-.pg-university-inner{
+.pg-item-inner{
     @include u-568px-contents-width;
     @include u-sp-contents-padding;
     @apply flex justify-center flex-col;
@@ -19,12 +19,12 @@
     }
 }
 
-.pg-university-inner-list{
+.pg-item-inner-list{
     border: 1px solid;
     @apply mt-5 h-80 overflow-y-scroll px-4 py-4 flex flex-col gap-4;
 }
 
-.pg-university-inner-list-item{
+.pg-item-inner-list-item{
     border-bottom: 1px solid;
     @apply pl-1 hover:opacity-60;
 

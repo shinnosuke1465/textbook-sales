@@ -67,11 +67,7 @@
                     <ul class="c-header-form-toggle-wrapper-list">
                         <li class="c-header-form-toggle-wrapper-list-item">
                             <a href="{{ route('university') }}"
-                                class="c-header-form-toggle-wrapper-list-item__anchor">大学から探す</a>
-                        </li>
-                        <li class="c-header-form-toggle-wrapper-list-item">
-                            <a href="{{ route('faculty') }}"
-                                class="c-header-form-toggle-wrapper-list-item__anchor">学部から探す</a>
+                                class="c-header-form-toggle-wrapper-list-item__anchor">詳細検索</a>
                         </li>
                     </ul>
                 </div>
@@ -100,11 +96,11 @@
                 <div>
                     <span class="text-sm">表示件数</span><br>
                     <select id="pagination" name="pagination" class="border-solid border-black">
-                        <option value="1" @if (\Request::get('pagination') === '1') selected @endif>1件
+                        <option value="5" @if (\Request::get('pagination') === '5') selected @endif>5件
                         </option>
-                        <option value="2" @if (\Request::get('pagination') === '2') selected @endif>2件
+                        <option value="10" @if (\Request::get('pagination') === '10') selected @endif>10件
                         </option>
-                        <option value="3" @if (\Request::get('pagination') === '3') selected @endif>3件
+                        <option value="15" @if (\Request::get('pagination') === '15') selected @endif>15件
                         </option>
                     </select>
                 </div>

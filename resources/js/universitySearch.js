@@ -1,7 +1,6 @@
 import $ from "jquery";
 
 $(document).ready(function () {
-    // 検索欄と結果表示エリアの要素
     const $searchInput = $('.js-university-search');
     const $resultsList = $('.js-university-search-result');
     const $resetButton = $('.js-reset-button');
@@ -28,7 +27,7 @@ $(document).ready(function () {
                 if (data.length > 0) {
                     data.forEach(function (university) {
                         $resultsList.append('<li class="pg-university-inner-list-item">' +
-                            '<a class="pg-university-inner-list-item__anchor" href="/textbooks?university_id=' + university.id +  '&keyword=' + university.name + '">' +
+                            '<a class="pg-university-inner-list-item__anchor js-university-link" href="#" data-id="' + university.id + '" data-name="' + university.name + '">' +
                             university.name +
                             '</a></li>');
                     });
@@ -40,6 +39,17 @@ $(document).ready(function () {
                 console.error('検索に失敗しました。');
             }
         });
+    });
+
+    // 大学名クリックイベント
+    $resultsList.on('click', '.js-university-link', function (event) {
+        event.preventDefault(); // デフォルトのリンク動作を無効化
+
+        const universityId = $(this).data('id');
+        const universityName = $(this).data('name');
+
+        // /facultyページにクエリパラメータを追加して遷移
+        window.location.href = `/faculty?university_id=${universityId}&university_name=${encodeURIComponent(universityName)}`;
     });
 
     // リセットボタンのクリックイベント

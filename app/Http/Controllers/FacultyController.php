@@ -15,13 +15,12 @@ class FacultyController extends Controller
 
     public function search(Request $request)
     {
-        // キーワード検索を適用しつつ、学部名を重複排除
-        $faculties = Faculty::select('name')
-            ->when($request->filled('keyword'), function ($query) use ($request) {
-                $query->searchKeyword($request->input('keyword'));
-            })
-            ->distinct() // 重複する学部名を排除
-            ->get();
+        $universityId = $request->input('university_id');
+
+        $faculties = Faculty::select('id', 'name')
+        ->where('university_id', $universityId)
+        ->distinct()
+        ->get();
 
         return response()->json($faculties);
     }

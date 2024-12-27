@@ -54,7 +54,7 @@
 }
 
 .c-header-form-toggle-wrapper{
-    @apply absolute -bottom-[8.5rem] left-0 p-4 rounded-lg shadow-lg bg-white hidden;
+    @apply absolute -bottom-[5.25rem] left-0 p-4 rounded-lg shadow-lg bg-white hidden;
     width: calc(100% - 97px);
     margin-left: 0 !important;
     &.open{
