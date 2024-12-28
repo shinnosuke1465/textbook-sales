@@ -10,6 +10,11 @@ class Faculty extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'university_id'
+    ];
+
     public function user(): HasMany
     {
         return $this->hasMany(User::class);
