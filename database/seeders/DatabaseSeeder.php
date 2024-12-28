@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Faculty;
 use App\Models\ItemCondition;
+use App\Models\Textbook;
+use App\Models\Stock;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +24,10 @@ class DatabaseSeeder extends Seeder
             FacultySeeder::class,
             FacultySeeder::class,
             ItemConditionSeeder::class,
+            UserSeeder::class
         ]);
+
+        Textbook::factory(3)->create();
+        Stock::factory(3)->create();
     }
 }

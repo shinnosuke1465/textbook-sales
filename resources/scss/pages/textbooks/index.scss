@@ -3,7 +3,6 @@
 .pg-textbook {
     @include u-1200px-contents-width;
     @include u-sp-contents-padding;
-    @apply pt-16;
 
     &__list{
         @apply grid gap-4 lg:grid-cols-5 md:grid-cols-4;

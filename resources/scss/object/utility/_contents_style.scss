@@ -8,6 +8,10 @@
     @apply max-w-[32rem] mx-auto;
 }
 
+@mixin u-568px-contents-width{
+    @apply max-w-[35.5rem] mx-auto;
+}
+
 @mixin u-1000px-contents-width {
     @apply lg:px-[5%] xl:px-0 xl:max-w-[62.5rem] xl:mx-auto;
 }

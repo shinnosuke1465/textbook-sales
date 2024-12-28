@@ -1,5 +1,5 @@
 .c-header{
-    @apply fixed z-30 top-0 left-0 w-full flex items-center justify-between lg:px-10 px-[7.2%] lg:h-20 h-16 bg-white;
+    @apply fixed z-30 top-0 left-0 w-full flex items-center justify-between lg:px-10 px-[7.2%] lg:h-20 h-16 bg-white gap-4;
     border-bottom: 1px solid;
 
     &__logo{
@@ -22,6 +22,58 @@
         }
     }
 
+}
+
+.c-header-form{
+    @apply w-full;
+
+    &__content{
+        @apply lg:flex lg:justify-around gap-24 w-full items-center;
+    }
+
+    &__search{
+        @apply  flex space-x-2 items-center w-full max-w-[31rem] relative;
+    }
+
+    &__button{
+        @apply ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded h-10 flex w-24;
+    }
+
+    &__box{
+        border: 1px solid;
+        @apply flex relative border-black w-full;
+    }
+
+    &__input{
+        @apply border-gray-500 py-2 w-full;
+    }
+
+    &__reset{
+        @apply rounded-full bg-gray-400 text-white w-6 h-6 items-center justify-center absolute top-2 right-2;
+    }
+}
+
+.c-header-form-toggle-wrapper{
+    @apply absolute -bottom-[5.25rem] left-0 p-4 rounded-lg shadow-lg bg-white hidden;
+    width: calc(100% - 97px);
+    margin-left: 0 !important;
+    &.open{
+        @apply block;
+    }
+}
+
+.c-header-form-toggle-wrapper-list{
+    @apply flex flex-col gap-4;
+}
+
+.c-header-form-toggle-wrapper-list-item{
+    border-bottom: 1px solid;
+    @apply pb-4 pl-2;
+
+    &__anchor{
+        @apply relative block w-full;
+        @apply after:content-[">"] after:bg-contain after:w-4 after:h-[1.6rem] after:absolute after:right-0;
+    }
 }
 
 .c-header-drop{

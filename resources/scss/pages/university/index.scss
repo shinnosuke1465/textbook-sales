@@ -1,0 +1,34 @@
+@use "../../object/utility/contents_style" as *;
+
+.pg-university-inner{
+    @include u-568px-contents-width;
+    @include u-sp-contents-padding;
+    @apply flex justify-center flex-col;
+
+    &__content{
+        border: 1px solid;
+        @apply flex relative border-black;
+    }
+
+    &__input{
+        @apply w-full;
+    }
+
+    &__button{
+        @apply rounded-full bg-gray-400 text-white w-6 h-6 flex items-center justify-center absolute top-2 right-2 hidden;
+    }
+}
+
+.pg-university-inner-list{
+    border: 1px solid;
+    @apply mt-5 h-80 overflow-y-scroll px-4 py-4 flex flex-col gap-4;
+}
+
+.pg-university-inner-list-item{
+    border-bottom: 1px solid;
+    @apply pl-1 hover:opacity-60;
+
+    &__anchor{
+        @apply w-full pb-4 block;
+    }
+}
