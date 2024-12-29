@@ -69,4 +69,14 @@ class User extends Authenticatable
         return $this->hasMany(Textbook::class, 'buyer_id');
     }
 
+    //掲示板
+	public function postMessages()
+    {
+        return $this->hasMany(PostMessage::class);
+    }
+    public function postRoomUsers()
+    {
+        return $this->hasMany(PostRoomUser::class);
+    }
+
 }
