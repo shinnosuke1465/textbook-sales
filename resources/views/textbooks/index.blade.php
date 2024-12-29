@@ -27,11 +27,10 @@
                 ])->links() }}
         </div>
         {{-- 掲示板遷移ボタン --}}
-        <form method="POST" action="{{ route('posts.index') }}">
-            @csrf
-            //マッチング相手のユーザーid渡す
-            <input name="user_id" type="hidden" value="{{ $user->id }}">
-            <button type="submit" class="chatForm_btn">チャットを開く</button>
-        </form>
+        @auth
+            <a href="{{ route('posts.show') }}" type="submit" class="chatForm_btn">チャットを開く</a>
+        @else
+            <p class="text-gray-500">チャットを開くにはログインしてください。</p>
+        @endauth
     </div>
 @endsection

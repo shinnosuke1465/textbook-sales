@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\University;
 use App\Models\Faculty;
 use App\Models\Post;
+use App\Models\PostRoomUser;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -88,15 +89,36 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         //掲示板作成
+        // 1) 掲示板(Post)を探す
+        //    大学ID・学部ID に対応するレコードがあるか確認
         $post = Post::where('university_id', $user->university_id)
-            ->where('faculty_id', $user->faculty_id)
-            ->first();
+        ->where('faculty_id', $user->faculty_id)
+        ->first();
 
+        // 4) なければ作成
         if (! $post) {
+            // 大学名や学部名をUser->university->name などから取得する想定
+            // あるいは何らかのマスタテーブルがあるならそれとリレーション組んでいる前提
+            $universityName = $user->university->name ?? '大学不明';
+            $facultyName    = $user->faculty->name ?? '学部不明';
+
             $post = Post::create([
-                'university_id' => $user->university_id,
-                'faculty_id'    => $user->faculty_id,
-                'title'         => "{$user->university->name}×{$user->faculty->name}",
+                'title'          => "{$universityName} {$facultyName}",
+                'university_id'  => $user->university_id,
+                'faculty_id'     => $user->faculty_id,
+            ]);
+        }
+
+        // 5) PostRoomUsers へ登録
+        //    既に登録済みでないか確認したうえでINSERT(二重登録を防ぐなら)
+        $alreadyRegistered = PostRoomUser::where('post_id', $post->id)
+        ->where('user_id', $user->id)
+        ->exists();
+
+        if (! $alreadyRegistered) {
+            PostRoomUser::create([
+            'post_id' => $post->id,
+            'user_id' => $user->id,
             ]);
         }
 

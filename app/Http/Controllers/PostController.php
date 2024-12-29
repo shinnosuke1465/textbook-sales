@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\PostRoomUser;
+use App\Models\PostMessage;
+use App\Models\User;
+use Auth;
 
 class PostController extends Controller
 {
-
     // public function index()
     // {
     //     $posts = Post::all();
@@ -15,82 +18,51 @@ class PostController extends Controller
     //     return view('posts.index', ['posts' => $posts]);
     // }
     // ここから追加
-    public static function index(Request $request)
+    public static function show(Request $request)
     {
 
         //対象ユーザーのid取得
         $matching_user_id = $request->user_id;
 
         // 現在のユーザーのチャットルームを取得
-        //ログインしているユーザー（例：user_id = 1）のchat_room_idをChatRoomUsersテーブルから取得
-        $current_user_chat_rooms = ChatRoomUser::where('user_id', Auth::id())
-            ->pluck('chat_room_id');
+        //ログインしているユーザー（例：user_id = 1）のpost_idをPostRoomUsersテーブルから取得
+        $current_user_post_rooms = PostRoomUser::where('user_id', Auth::id())->pluck('post_id');
 
-        // 対象ユーザーとのチャットルームを探す
-        $chat_room_id = ChatRoomUser::whereIn('chat_room_id', $current_user_chat_rooms)
-            ->where('user_id', $matching_user_id)
-            ->pluck('chat_room_id');
+        $post = Post::where('id', $current_user_post_rooms)->first();
 
-
-        // チャットルームがなければ作成する
-        //存在しなければ、新しいChatRoomを作成し、そのchat_room_idを2人のuser_idでChatRoomUsersテーブルに追加
-        if ($chat_room_id->isEmpty()) {
-
-            ChatRoom::create(); //チャットルーム作成
-
-            $latest_chat_room = ChatRoom::orderBy('created_at', 'desc')->first(); //最新チャットルームを取得
-
-            $chat_room_id = $latest_chat_room->id;
-
-            // 新規登録 モデル側 $fillableで許可したフィールドを指定して保存
-            ChatRoomUser::create(
-                [
-                    'chat_room_id' => $chat_room_id,
-                    'user_id' => Auth::id()
-                ]
-            );
-
-            ChatRoomUser::create(
-                [
-                    'chat_room_id' => $chat_room_id,
-                    'user_id' => $matching_user_id
-                ]
-            );
-        }
 
         // チャットルーム取得時はオブジェクト型なので数値に変換
-        if (is_object($chat_room_id)) {
-            $chat_room_id = $chat_room_id->first();
+        if (is_object($current_user_post_rooms)) {
+            $current_user_post_rooms = $current_user_post_rooms->first();
         }
 
-        // チャット相手のユーザー情報を取得
-        $chat_room_user = User::findOrFail($matching_user_id);
 
-        // チャット相手のユーザー名を取得(JS用)
-        $chat_room_user_name = $chat_room_user->name;
+        $post_messages = PostMessage::where('post_id', $current_user_post_rooms)
+        ->orderby('created_at')
+        ->get();
 
-        $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
-            ->orderby('created_at')
-            ->get();
+        // メッセージに登場するユーザーを一度に取得
+        $user_ids = $post_messages->pluck('user_id')->unique(); // メッセージ内の全ユーザーIDを取得
+        $users = User::whereIn('id', $user_ids)->get()->keyBy('id'); // ユーザー情報をキー（id）付きで取得
 
-        return view(
-            'chat.show',
-            compact(
-                'chat_room_id',
-                'chat_room_user',
-                'chat_messages',
-                'chat_room_user_name'
-            )
-        );
+        // 同じ post_id に属するユーザーの数を取得
+        $user_count = PostRoomUser::where('post_id', $current_user_post_rooms)->count();
+
+        return view('posts.index', compact('post', 'post_messages', 'current_user_post_rooms', 'users', 'user_count'));
     }
 
     public function store(Request $request)
     {
-        Post::create(
-            [
-                "comment" => $request->comment
-            ]
-        );
+        // Post::create(
+        //     [
+        //         "message" => $request->message
+        //     ]
+        // );
+        $post = new PostMessage();
+        $post->post_id = $request->post_id;
+        $post->user_id = $request->user_id;
+        $post->message = $request->message;
+        $post->save();
 
         return redirect('/posts')->with('success', '投稿が保存されました！');
     }
