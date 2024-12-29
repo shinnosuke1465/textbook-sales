@@ -55,7 +55,7 @@ Route::get('/item', [ItemController::class, 'index'])->name('item');
 Route::resource('textbooks', TextbookController::class)->middleware('auth');
 
 //掲示板
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts', [PostController::class, 'show'])->name('posts.show');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 require __DIR__.'/auth.php';
