@@ -30,6 +30,11 @@ class Faculty extends Model
         return $this->hasMany(Textbook::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function scopeSearchKeyword($query, $keyword)
     {
         if (!is_null($keyword)) {
