@@ -11,13 +11,6 @@ use Auth;
 
 class PostController extends Controller
 {
-    // public function index()
-    // {
-    //     $posts = Post::all();
-
-    //     return view('posts.index', ['posts' => $posts]);
-    // }
-    // ここから追加
     public static function show(Request $request)
     {
 
@@ -48,7 +41,7 @@ class PostController extends Controller
         // 同じ post_id に属するユーザーの数を取得
         $user_count = PostRoomUser::where('post_id', $current_user_post_rooms)->count();
 
-        return view('posts.index', compact('post', 'post_messages', 'current_user_post_rooms', 'users', 'user_count'));
+        return view('posts.show', compact('post', 'post_messages', 'current_user_post_rooms', 'users', 'user_count'));
     }
 
     public function store(Request $request)
