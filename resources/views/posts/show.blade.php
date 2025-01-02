@@ -40,6 +40,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">送信</button>
             </form>
+        さああ修正
         </div>
     </div>
     </div>
