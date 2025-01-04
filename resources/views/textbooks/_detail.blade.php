@@ -32,5 +32,7 @@
             {{ $item->created_at->format('Y年n月j日 H:i') }}
         </p>
 
+        <a href="{{route('textbook.purchase', [$item->id])}}">購入</a>
+
     </div>
 </div>

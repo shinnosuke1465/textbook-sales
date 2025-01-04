@@ -57,7 +57,7 @@ Route::resource('textbooks', TextbookController::class)->middleware('auth');
 // 購入の処理
 Route::middleware('auth')
 ->group(function () {
-    Route::get('textbooks/{textbook}/purchase', [TextbookController::class,'showPurchaseTextbookForm'])->name('textbook.purchase');
+    Route::get('textbooks/{textbook}/purchase', [TextbookController::class,'showPurchase'])->name('textbook.purchase');
     Route::post('textbooks/{textbook}/purchase', [TextbookController::class,'purchaseTextbook'])->name('textbook.purchase');
 });
 

@@ -44,6 +44,42 @@ class TextbookController extends Controller
         return view('textbooks.detail')->with('item', $textbook);
     }
 
+    public function showPurchase(Textbook $textbook)
+    {
+        //既に購入されている商品の商品購入画面にアクセスしてきた場合はHTTPステータスコード404(Not Found)を返す
+        if (!$textbook->isStateSelling) {
+            abort(404);
+        }
+
+        return view('textbooks.purchase')
+            ->with('item', $textbook);
+    }
+
+    // public function buyItem(Request $request, Item $item)
+    // {
+    //     $user = Auth::user();
+
+    //     if (!$item->isStateSelling) {
+    //         abort(404);
+    //     }
+
+    //     $token = $request->input('card-token');
+
+    //     try {
+    //         //settlementメソッドの中で例外が発生した場合、そこで処理が切り上げられ、catchに処理が移
+    //         $this->settlement($item->id, $item->seller->id, $user->id, $token);
+    //     } catch (\Exception $e) {
+    //         //
+    //         Log::error($e);
+    //         return redirect()->back()
+    //             ->with('type', 'danger')
+    //             ->with('message', '購入処理が失敗しました。');
+    //     }
+
+    //     return redirect()->route('item', [$item->id])
+    //         ->with('message', '商品を購入しました。');
+    // }
+
     /**
      * Show the form for creating a new resource.
      */
