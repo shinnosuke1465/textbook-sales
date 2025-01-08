@@ -1,11 +1,8 @@
 @import "object/components";
 @import "foundation";
 
-@import "./pages/mypage/profile_edit_form.scss";
-@import "./pages/mypage/sold_items.scss";
-@import "./pages/textbooks/create.scss";
-@import "./pages/textbooks/index.scss";
-@import "./pages/textbooks/_detail.scss";
-@import "./pages/university/index.scss";
-@import "./pages/faculty/index.scss";
-@import "./pages/item/index.scss";
+@import "./pages/mypage";
+@import "./pages/textbooks";
+@import "./pages/university";
+@import "./pages/faculty";
+@import "./pages/item";

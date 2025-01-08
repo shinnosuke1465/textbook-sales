@@ -1,0 +1,52 @@
+@use "../../object/utility/contents_style" as *;
+
+.pg-textbook-purchase{
+    @apply pt-10;
+}
+
+.pg-textbook-purchase-inner{
+    @include u-1200px-contents-width;
+    @apply flex flex-row gap-12 pt-28;
+}
+
+.pg-textbook-purchase-inner-content{
+    @apply w-1/2 flex flex-col gap-3 relative;
+
+    &__button{
+        @apply absolute left-0 -top-10;
+    }
+
+    &__image{
+        @apply max-w-[300px];
+    }
+
+    &__name,&__price{
+        @apply text-4xl font-bold pb-3;
+        border-bottom: 1px solid #ccc;
+
+        & > i{
+            @apply text-gray-700 text-base;
+        }
+    }
+
+    &__name{
+        @apply pt-3;
+        border-top: 1px solid #ccc;
+    }
+
+    .c-headline-base{
+        @apply pt-0 text-left;
+    }
+}
+
+.pg-textbook-purchase-inner-info{
+    @apply w-1/2 flex flex-col items-center;
+
+    &__button{
+        @apply w-full h-12 bg-red-500 text-white rounded-2xl mt-6 max-w-[350px];
+    }
+}
+
+.pg-textbook-purchase-inner-info-list{
+    @apply w-full text-left;
+}

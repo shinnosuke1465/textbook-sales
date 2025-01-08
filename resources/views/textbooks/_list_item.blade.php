@@ -2,11 +2,11 @@
     <a class="c-textbook-list-item__anchor" href="{{ route('textbooks.show', [$textbook->id]) }}">
         {{-- 商品画像 --}}
         <div class="c-textbook-list-item__image-area">
-            <div class="c-textbook-list-item__image-area">
-            @include('components.thumbnail', [
-            'type' => 'textbooks',
-            'filename' => $textbook->image_file_name,
-            ])
+            <div>
+                @include('components.thumbnail', [
+                'type' => 'textbooks',
+                'filename' => $textbook->image_file_name,
+                ])
             </div>
             <div class="c-textbook-list-item__price">
                 <i class="fas fa-yen-sign"></i>
