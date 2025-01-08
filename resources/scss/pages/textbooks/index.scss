@@ -1,3 +1,7 @@
+@forward "create";
+@forward "detail";
+@forward "purchase";
+
 @use "../../object/utility/contents_style" as *;
 
 .pg-textbook {
@@ -16,7 +20,8 @@
     }
 
     &__image-area{
-        @apply relative;
+        @apply relative rounded-sm;
+        border: 1px solid #ccc;
     }
 
     &__price{

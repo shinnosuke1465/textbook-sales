@@ -7,9 +7,12 @@
         @apply flex flex-row gap-12 pt-28;
     }
 
+    &__button-back{
+        @apply absolute left-0 -top-10;
+    }
     &__image{
-        @apply w-3/5 h-[500px];
-
+        @apply w-3/5 h-[500px] relative;
+        border: 1px solid #ccc;
         img{
             @apply h-full;
         }
@@ -17,5 +20,41 @@
 
     &__info{
         @apply w-2/5;
+    }
+
+    &__name{
+        @apply text-3xl font-bold;
+    }
+
+    &__university{
+        @apply mt-1 text-gray-400 text-2xl;
+    }
+
+    &__price{
+        @apply text-4xl font-bold;
+
+        & > i{
+            @apply text-gray-700 text-base;
+        }
+    }
+
+    &__description-area{
+        @apply mt-8;
+    }
+
+    &__description-title{
+        @apply text-xl font-bold text-[#666];
+    }
+
+    &__description-text{
+        @apply text-base font-medium text-black mt-1;
+    }
+
+    &__button{
+        @apply w-full h-12 flex items-center justify-center bg-red-500 text-white rounded-2xl mt-6 font-bold;
+    }
+
+    &__button-sold{
+        @apply w-full h-12 flex items-center justify-center bg-[#ccc] text-[#666] rounded-2xl mt-6 font-bold;
     }
 }
