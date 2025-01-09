@@ -1,0 +1,38 @@
+@use "../../object/utility/contents_style" as *;
+
+.pg-post-inner{
+    @include u-1200px-contents-width;
+    @include u-sp-contents-padding;
+
+
+    &__number{
+        @apply text-center text-xl;
+    }
+}
+
+.pg-post-inner-container{
+    @apply flex flex-col gap-1 mt-3 h-[22rem] overflow-y-scroll;
+
+    &__message{
+        @apply pb-1;
+        border-bottom: 1px solid #ccc;
+    }
+
+    &__name{
+        @apply text-blue-600;
+    }
+
+    &__heading{
+        @apply flex items-center gap-2 text-[#ccc] mb-1;
+    }
+}
+
+.pg-post-inner-form{
+    &__container{
+        @apply mt-8 h-20;
+    }
+    &__input{
+        @apply w-full h-full;
+        border: 1px solid;
+    }
+}

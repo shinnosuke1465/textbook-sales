@@ -37,7 +37,7 @@
 
 <header class="c-header">
     <a class="c-header__logo" href="{{ route('top') }}">
-        <img src="/images/logo-1.png" alt="">
+        教科書販売
     </a>
 
     <form method="get" action="{{ route('textbooks.index') }}" class="c-header-form">
@@ -109,7 +109,7 @@
                 {{-- 非ログイン --}}
                 @foreach ($header_items as $item)
                     <li class="c-header__item">
-                        <a class="btn btn-secondary ml-3" href="{{ $item['href'] }}"
+                        <a class="c-header__link" href="{{ $item['href'] }}"
                             role="button">{{ $item['label'] }}</a>
                     </li>
                 @endforeach
