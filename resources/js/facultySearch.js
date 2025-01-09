@@ -4,6 +4,7 @@ $(document).ready(function () {
     const $headerInput = $('.js-header-input'); // ヘッダーの検索欄
     const $resetButton = $('.c-header-form__reset'); // ヘッダーのリセットボタン
     const $facultyResultsList = $('.js-faculty-search-result'); // 学部一覧表示エリア
+    const $searchInput = $('.js-faculty-search');
 
     // URLクエリパラメータを取得
     const urlParams = new URLSearchParams(window.location.search);
@@ -16,25 +17,47 @@ $(document).ready(function () {
         $resetButton.show(); // リセットボタンを表示
     }
 
-    // Ajaxで学部一覧を取得
+     // ページロード時に学部リストを初期表示
     if (universityId) {
+        fetchFaculties({ university_id: universityId });
+    }
+    // 入力イベントを監視
+    $searchInput.on('input', function () {
+        const keyword = $(this).val();
+
+        // 入力値が空ならボタンを非表示、値があれば表示
+        if (keyword === '') {
+            // キーワードが空なら全ての学部を表示
+            fetchFaculties({ university_id: universityId });
+        } else {
+            // キーワードがある場合はフィルタリング
+            fetchFaculties({ university_id: universityId, keyword: keyword });
+        }
+    });
+
+    // 学部リストを取得して表示
+    function fetchFaculties(params) {
         $.ajax({
             url: '/faculty/search',
             method: 'GET',
-            data: { university_id: universityId },
+            data: params,
             success: function (data) {
                 $facultyResultsList.empty();
-                const uniqueFaculties = new Set();
-                data.forEach(function (faculty) {
-                    if (!uniqueFaculties.has(faculty.name)) {
-                        uniqueFaculties.add(faculty.name); // 重複を排除
-                        $facultyResultsList.append('<li class="pg-faculty-inner-list-item" data-faculty-id="' + faculty.id + '" data-name="' + faculty.name + '">' +
-                            '<a class="pg-faculty-inner-list-item__anchor js-faculty-link" href="#">' + faculty.name + '</a></li>');
-                    }
-                });
+                if (data.length > 0) {
+                    const uniqueFaculties = new Set();
+                    data.forEach(function (faculty) {
+                        if (!uniqueFaculties.has(faculty.name)) {
+                            uniqueFaculties.add(faculty.name);
+                            $facultyResultsList.append('<li class="pg-faculty-inner-list-item" data-faculty-id="' + faculty.id + '" data-name="' + faculty.name + '">' +
+                                '<a class="pg-faculty-inner-list-item__anchor js-faculty-link" href="#">' + faculty.name + '</a></li>');
+                        }
+                    });
+                } else {
+                    $facultyResultsList.append('<li>該当する学部がありません。</li>');
+                }
             },
             error: function () {
-                console.error('学部の取得に失敗しました。');
+                console.error('学部リストの取得に失敗しました。');
             }
         });
     }

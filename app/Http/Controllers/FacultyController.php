@@ -15,12 +15,19 @@ class FacultyController extends Controller
 
     public function search(Request $request)
     {
+
+        $keyword = $request->input('keyword');
         $universityId = $request->input('university_id');
 
         $faculties = Faculty::select('id', 'name')
-        ->where('university_id', $universityId)
-        ->distinct()
-        ->get();
+            ->when($universityId, function ($query, $universityId) {
+                $query->where('university_id', $universityId);
+            })
+            ->when($keyword, function ($query, $keyword) {
+                $query->where('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->distinct()
+            ->get();
 
         return response()->json($faculties);
     }
