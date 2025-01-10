@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('post_messages', function (Blueprint $table) {
             $table->id();
-            $table->integer('post_id'); // この行を追加
-            $table->integer('user_id'); // この行を追加
+            $table->integer('post_id');
+            $table->integer('user_id');
             $table->string('message');
             $table->timestamps();
         });

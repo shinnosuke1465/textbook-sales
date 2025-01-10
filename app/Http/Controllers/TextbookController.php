@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\University;
 use App\Services\ImageService;
 use DB;
+use Carbon\Carbon;
+use App\Models\User;
+use Payjp\Charge;
 use Illuminate\Support\Facades\Log;
 
 class TextbookController extends Controller
@@ -55,30 +58,74 @@ class TextbookController extends Controller
             ->with('item', $textbook);
     }
 
-    // public function buyItem(Request $request, Item $item)
-    // {
-    //     $user = Auth::user();
+    public function purchaseTextbook(Request $request, Textbook $textbook)
+    {
+        //Request $request...inputタグでおくられてきたトークンを所得
+        //Textbook $textbook...今回呼び出されたurlのtextbookのidに一致するtextbooksテーブルのカラムを取得
+        $user = Auth::user();
 
-    //     if (!$item->isStateSelling) {
-    //         abort(404);
-    //     }
+        if (!$textbook->isStateSelling) {
+            abort(404);
+        }
 
-    //     $token = $request->input('card-token');
+        $token = $request->input('card-token');
 
-    //     try {
-    //         //settlementメソッドの中で例外が発生した場合、そこで処理が切り上げられ、catchに処理が移
-    //         $this->settlement($item->id, $item->seller->id, $user->id, $token);
-    //     } catch (\Exception $e) {
-    //         //
-    //         Log::error($e);
-    //         return redirect()->back()
-    //             ->with('type', 'danger')
-    //             ->with('message', '購入処理が失敗しました。');
-    //     }
+        try {
+            //settlementメソッドの中で例外が発生した場合、そこで処理が切り上げられ、catchに処理が移
+            $this->settlement($textbook->id, $textbook->seller->id, $user->id, $token);
+        } catch (\Exception $e) {
+            Log::error('Error during textbook creation: ' . $e->getMessage());
+            return redirect()->route('textbooks.index')->with([
+                'message' => '購入処理が失敗しました。',
+                'status' => 'alert',
+            ]);
+        }
 
-    //     return redirect()->route('item', [$item->id])
-    //         ->with('message', '商品を購入しました。');
-    // }
+        return redirect()->route('textbooks.index', [$textbook->id])->with(['message' => '商品を購入しました。', 'status' => 'info']);
+
+    }
+
+    private function settlement($itemID, $sellerID, $buyerID, $token)
+    {
+        DB::beginTransaction();
+
+        try {
+            //多重決済を避ける
+            //例えば、同じ商品を複数の会員が同時に購入した場合、処理が並列に実行され、決済が重複して行われる可能性がある。
+            //この多重決済を避けるためにレコードを排他ロックし、同じレコードに対する処理が並列に実行されないようにする。
+            //findはidを指定して単一のレコードを取得するメソッド
+            //渡ってきた出品者のid(userid)を排他ロックしつつuserテーブルから一致するidの情報を取得
+            $seller = User::lockForUpdate()->find($sellerID);
+            $textbook   = Textbook::lockForUpdate()->find($itemID);
+
+            if ($textbook->isStateBought) {
+                throw new \Exception('多重決済');
+            }
+
+            $textbook->state     = Textbook::STATE_BOUGHT;
+            $textbook->bought_at = Carbon::now();
+            $textbook->buyer_id  = $buyerID;
+            $textbook->save();
+
+            //出品者の売上額を加算
+            $seller->sales += $textbook->price;
+            $seller->save();
+
+            $charge = Charge::create([
+                'card'     => $token,
+                'amount'   => $textbook->price,
+                'currency' => 'jpy'
+            ]);
+            if (!$charge->captured) {
+                throw new \Exception('支払い確定失敗');
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+    }
 
     /**
      * Show the form for creating a new resource.
