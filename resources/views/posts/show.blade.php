@@ -39,7 +39,7 @@
                 @csrf
                 <div class='pg-post-inner-form__container'>
                     <!-- メッセージ入力欄 -->
-                    <input type="text" name="message" data-behavior="post_message" class="pg-post-inner-form__input" placeholder="メッセージを入力..." required>
+                    <input type="text" name="message" data-behavior="post_message" class="pg-post-inner-form__input" autocomplete="off" placeholder="メッセージを入力..." required>
                     <!-- 隠しフィールドでスクリプト内の値を送信 -->
                     <input type="hidden" name="post_id" id="post_id" value="">
                     <input type="hidden" name="user_id" id="user_id" value="">

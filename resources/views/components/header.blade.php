@@ -42,26 +42,13 @@
 
     <form method="get" action="{{ route('textbooks.index') }}" class="c-header-form">
         <div class="c-header-form__content">
-            {{-- <select name="category" class="mb-2 lg:mb-0 lg:mr-2">
-                <option value="0" @if (\Request::get('category') === '0') selected @endif>全て</option>
-                @foreach ($universities as $university)
-                    <optgroup label="{{ $university->name }}">
-                        @foreach ($university->faculties as $faculty)
-                            <option value="{{ $faculty->id }}" @if (\Request::get('category') == $faculty->id) selected @endif>
-                                {{ $faculty->name }}
-                            </option>
-                        @endforeach
-                    </optgroup> <!-- optgroupタグを閉じる -->
-                @endforeach
-            </select> --}}
-
             <div class="c-header-form__search">
-
                 <div class="c-header-form__box">
                     <input name="keyword" class="c-header-form__input js-toggle__trigger js-header-input"
                         placeholder="キーワードを入力" autocomplete="off" value="{{ request('keyword') }}">
                     <button class="c-header-form__reset js-reset-button" type="button"
-                        style="display: {{ request('keyword') ? 'flex' : 'none' }};">×</button>
+                        style="display: {{ request('keyword') ? 'flex' : 'none' }};">×
+                    </button>
                 </div>
                 <button class="c-header-form__button">検索</button>
                 <div class="c-header-form-toggle-wrapper js-toggle__target">
@@ -109,8 +96,7 @@
                 {{-- 非ログイン --}}
                 @foreach ($header_items as $item)
                     <li class="c-header__item">
-                        <a class="c-header__link" href="{{ $item['href'] }}"
-                            role="button">{{ $item['label'] }}</a>
+                        <a class="c-header__link" href="{{ $item['href'] }}" role="button">{{ $item['label'] }}</a>
                     </li>
                 @endforeach
             @else

@@ -129,7 +129,7 @@
             </form>
 
 
-            <form id="delete_{{ $textbook->id }}" method="post" action="{{ route('textbooks.destroy', $textbook->id) }}">
+            <form class="pg-textbook-delete" id="delete_{{ $textbook->id }}" method="post" action="{{ route('textbooks.destroy', $textbook->id) }}">
                 @csrf
                 @method('delete')
                 @include('components.button_base', [
