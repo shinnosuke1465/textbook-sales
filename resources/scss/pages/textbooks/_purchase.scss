@@ -48,5 +48,12 @@
 }
 
 .pg-textbook-purchase-inner-info-list{
-    @apply w-full text-left;
+    @apply w-full text-left flex flex-col gap-3 max-w-[350px];
+}
+
+.pg-textbook-purchase-inner-info-list-item{
+    &__input{
+        @apply w-full rounded-lg h-10 flex items-center pl-2;
+        border: 1px solid #ccc;
+    }
 }

@@ -21,6 +21,7 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->unsignedInteger('sales')->default(0);//usersテーブルに売り上げ金額を保存するためのsalesカラム
         });
     }
 

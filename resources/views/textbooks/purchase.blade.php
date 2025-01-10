@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    {{-- <script src="https://js.pay.jp/v2/pay.js"></script> --}}
+    <script src="https://js.pay.jp/v2/pay.js"></script>
     <section class="pg-textbook-purchase">
         <div class="pg-textbook-purchase-inner">
             <div class="row">
@@ -55,20 +55,19 @@
                     ];
                 @endphp
                 <ul class="pg-textbook-purchase-inner-info-list">
-                    {{-- <div class="card-form-alert alert alert-danger" role="alert" style="display: none"></div> --}}
-                    @foreach ($info_items as $item)
+                    <div class="card-form-alert alert alert-danger" role="alert" style="display: none"></div>
+                    @foreach ($info_items as $info_item)
                         <li class="pg-textbook-purchase-inner-info-list-item">
-                            <label for="{{ $item['key'] }}">{{ $item['label'] }}</label>
-                            <div id="{{ $item['key'] }}" class="form-control"><!-- ここにフォームが生成されます --></div>
+                            <label for="{{ $info_item['key'] }}">{{ $info_item['label'] }}</label>
+                            <div id="{{ $info_item['key'] }}" class="pg-textbook-purchase-inner-info-list-item__input"></div>
                         </li>
                     @endforeach
                 </ul>
-
                 <button class="pg-textbook-purchase-inner-info__button" onclick="onSubmit(event)">購入</button>
-                {{-- <form id="buy-form" method="POST" action="{{ route('textbook.purchase', [$item->id]) }}">
+                <form id="buy-form" method="POST" action="{{ route('textbook.purchase', [$item->id]) }}">
                     @csrf
                     <input type="hidden" id="card-token" name="card-token">
-                </form> --}}
+                </form>
             </div>
         </div>
     </section>
@@ -84,6 +83,7 @@
         expiryElement.mount('#expiry-form')
         cvcElement.mount('#cvc-form')
 
+        //購入ボタンをクリックした際に、カード情報をPAY.JPサーバに送信し、カードトークンを取得して後、フォームを送信(submit)
         function onSubmit(event) {
             const msgDom = document.querySelector('.card-form-alert');
             msgDom.style.display = "none";

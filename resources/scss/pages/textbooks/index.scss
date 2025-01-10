@@ -5,8 +5,11 @@
 @use "../../object/utility/contents_style" as *;
 
 .pg-textbook {
-    @include u-1200px-contents-width;
-    @include u-sp-contents-padding;
+
+    &__inner{
+        @include u-1200px-contents-width;
+        @include u-sp-contents-padding;
+    }
 
     &__list{
         @apply grid gap-4 lg:grid-cols-5 md:grid-cols-4;
@@ -20,7 +23,7 @@
     }
 
     &__image-area{
-        @apply relative rounded-sm;
+        @apply relative rounded-sm flex;
         border: 1px solid #ccc;
     }
 

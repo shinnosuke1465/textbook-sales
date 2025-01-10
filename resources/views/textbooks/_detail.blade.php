@@ -38,7 +38,12 @@
         </p>
 
         @if ($item->isStateSelling)
-            <a class="pg-textbook-detail__button" href="{{ route('textbook.purchase', [$item->id]) }}">購入</a>
+            @if ($item->seller_id === auth()->id())
+                {{-- 自分が出品した商品かを判定 --}}
+                <a class="pg-textbook-detail__button" href="{{ route('textbooks.edit', [$item->id]) }}">編集する</a>
+            @else
+                <a class="pg-textbook-detail__button" href="{{ route('textbook.purchase', [$item->id]) }}">購入</a>
+            @endif
         @else
             <button class="pg-textbook-detail__button-sold" disabled>売却済み</button>
         @endif
