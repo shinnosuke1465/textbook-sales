@@ -106,3 +106,9 @@
         }
     }
 }
+
+.pg-textbook-delete{
+    .c-button-base{
+        @apply max-w-[512px] mx-auto mt-5;
+    }
+}

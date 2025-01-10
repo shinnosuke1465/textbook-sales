@@ -11,10 +11,10 @@
         @apply absolute left-0 -top-10;
     }
     &__image{
-        @apply w-3/5 h-[500px] relative;
+        @apply w-3/5 h-[500px] relative bg-[#ccc];
         border: 1px solid #ccc;
         img{
-            @apply h-full;
+            @apply h-full object-contain;
         }
     }
 
