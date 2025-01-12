@@ -1,6 +1,6 @@
 .c-header{
     @apply fixed z-30 top-0 left-0 w-full flex items-center justify-between lg:px-10 px-[7.2%] lg:h-20 h-16 bg-white gap-4;
-    border-bottom: 1px solid #ccc;
+    box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
 
     &__logo{
         @apply w-32 font-bold text-xl;

@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use App\Models\User;
 use Payjp\Charge;
 use Illuminate\Support\Facades\Log;
+use App\Models\ChatRoomUser;
+use App\Models\ChatRoom;
 
 class TextbookController extends Controller
 {
@@ -81,8 +83,7 @@ class TextbookController extends Controller
             ]);
         }
 
-        return redirect()->route('textbooks.index', [$textbook->id])->with(['message' => '商品を購入しました。', 'status' => 'info']);
-
+        return redirect()->route('textbooks.index', [$textbook->id])->with(['message' => '商品を購入し、チャットルームを作成しました。', 'status' => 'info']);
     }
 
     private function settlement($itemID, $sellerID, $buyerID, $token)
@@ -118,6 +119,29 @@ class TextbookController extends Controller
             ]);
             if (!$charge->captured) {
                 throw new \Exception('支払い確定失敗');
+            }
+
+            // 既存のチャットルームをチェック
+            $existingChatRoom = ChatRoom::where('textbook_id', $itemID)->first();
+
+            if ($existingChatRoom) {
+                $chatRoom = $existingChatRoom;
+            } else {
+                // 新しいチャットルームを作成
+                $chatRoom = ChatRoom::create([
+                    'textbook_id' => $itemID,
+                ]);
+
+                // チャットルームに購入者と出品者を追加
+                ChatRoomUser::create([
+                    'chat_room_id' => $chatRoom->id,
+                    'user_id' => $buyerID,
+                ]);
+
+                ChatRoomUser::create([
+                    'chat_room_id' => $chatRoom->id,
+                    'user_id' => $sellerID,
+                ]);
             }
         } catch (\Exception $e) {
             DB::rollBack();

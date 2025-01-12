@@ -1,0 +1,32 @@
+@forward "show";
+
+@use "../../object/utility/contents_style" as *;
+
+.pg-transaction-inner{
+    @apply max-w-[50rem] mx-auto mt-7;
+}
+
+.pg-transaction-inner-list{
+    @apply flex flex-col;
+}
+
+.pg-transaction-inner-list-item{
+    @apply py-7 flex items-center justify-between pr-4 hover:bg-gray-100;
+    border-bottom: 1px solid #ccc;
+
+    .c-thumbnail{
+        @apply max-w-20
+    }
+
+    &__left{
+        @apply flex items-center gap-4;
+    }
+
+    &__info{
+        @apply flex gap-2 items-center;
+    }
+
+    &__button{
+        @apply bg-[#ff6574] text-white rounded-lg p-2 font-bold;
+    }
+}

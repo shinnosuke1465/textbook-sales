@@ -8,6 +8,7 @@ use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,11 @@ Route::middleware('auth')
 ->group(function () {
     Route::get('textbooks/{textbook}/purchase', [TextbookController::class,'showPurchase'])->name('textbook.purchase');
     Route::post('textbooks/{textbook}/purchase', [TextbookController::class,'purchaseTextbook'])->name('textbook.purchase');
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/transaction',[TransactionController::class, 'index'])->name('transaction');
+    Route::get('/transaction/show',[TransactionController::class, 'show'])->name('transaction.show');
 });
 
 //掲示板
