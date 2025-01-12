@@ -27,6 +27,11 @@
             'icon' => 'fas fa-store-alt',
         ],
         [
+            'label' => '取引一覧',
+            'href' => route('transaction'),
+            'icon' => 'fas fa-comments',
+        ],
+        [
             'label' => 'ログアウト',
             'href' => route('logout'),
             'icon' => 'fas fa-sign-out-alt',
