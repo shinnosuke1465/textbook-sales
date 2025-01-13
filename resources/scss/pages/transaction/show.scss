@@ -1,13 +1,14 @@
 @use "../../object/utility/contents_style" as *;
 
 .pg-transaction-chatPage{
-    @apply max-w-[1280px] mx-auto w-full px-9 pt-28;
+    @apply max-w-[1280px] mx-auto w-full px-9 pt-28 h-screen;
         min-height: calc(-64px + 100vh);
 }
 
 .pg-transaction-chatPage-inner{
-    @apply grid;
+    @apply grid h-full;
     grid-template-columns: repeat(12, 1fr);
+    overflow: hidden;
 
     & .c-headline-base{
         @apply text-left pt-0;
@@ -15,17 +16,69 @@
 }
 
 .pg-transaction-chatPage-inner-content{
-    @apply min-w-0 block;
+    @apply min-w-0 block relative pr-12;
     grid-column: span 4;
+    position: sticky; /* スクロール時に固定 */
+    top: 0;
+
+    &__button{
+        @apply absolute -top-9 left-0;
+    }
+
+    &__list{
+        @apply flex flex-col gap-4 mt-4;
+    }
+
+    &__item{
+        @apply pb-4 flex items-center;
+        border-bottom: 1px solid #ccc;
+    }
+
+    &__item-left{
+        flex: 1 1;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.4em;
+    }
+
+    &__item-right{
+        flex: 1.75 1;
+    }
 }
 
 .pg-transaction-chatPage-inner-message{
     @apply min-w-0 block;
     grid-column: span 8;
+    flex-grow: 1; /* メッセージエリアが余った高さを占める */
+    overflow-y: auto;
 
     &__input {
         @apply w-full rounded-md h-25 p-3;
         border: 1px solid #ccc;
+    }
+
+    &__name{
+        @apply w-full font-bold;
+    }
+
+    &__form{
+        @apply mt-4 pb-12;
+    }
+
+    .message{
+        @apply mt-4 pl-12 relative;
+    }
+
+    .commonMessage{
+        @apply w-full p-2 font-normal leading-snug mt-1 bg-[#f5f5f5] rounded-xl;
+    }
+
+    .message-time{
+        @apply text-[#666] font-normal leading-snug mt-1 text-xs;
+    }
+
+    .c-header__image{
+        @apply absolute top-0 left-0;
     }
 }
 

@@ -8,6 +8,7 @@ use App\Models\ChatRoomUser;
 use App\Models\ChatRoom;
 use App\Models\ChatMessage;
 use App\Models\User;
+use App\Events\ChatPusher;
 
 class TransactionController extends Controller
 {
@@ -55,12 +56,43 @@ class TransactionController extends Controller
         // チャット相手のユーザー情報を取得
         $chat_room_user = User::findOrFail($matching_user_id);
 
+        // チャット相手のユーザー名を取得(JS用)
+        $chat_room_user_name = $chat_room_user->name;
+
         // チャットメッセージを取得
         $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
             ->orderBy('created_at')
             ->get();
 
         // ビューにデータを渡して表示
-        return view('transaction.show', compact('chat_room', 'chat_room_user', 'chat_messages'));
+        return view('transaction.show', compact('chat_room_id', 'chat_room', 'chat_room_user', 'chat_messages', 'chat_room_user_name'));
+    }
+
+    public function chat(Request $request)
+    {
+        // バリデーション
+        $validated = $request->validate([
+            'chat_room_id' => 'required|exists:chat_rooms,id',
+            'user_id' => 'required|exists:users,id',
+            'message' => 'required|string|max:255',
+        ]);
+
+        try {
+            // メッセージを保存
+            $chat = new ChatMessage();
+            $chat->chat_room_id = $validated['chat_room_id'];
+            $chat->user_id = $validated['user_id'];
+            $chat->message = $validated['message'];
+            $chat->save();
+
+            // イベントを発火
+            event(new ChatPusher($chat));
+
+            // 成功レスポンス
+            return response()->json(['message' => 'Message sent successfully!', 'data' => $chat], 200);
+        } catch (\Exception $e) {
+            // エラーハンドリング
+            return response()->json(['error' => 'Failed to send message.', 'details' => $e->getMessage()], 500);
+        }
     }
 }
