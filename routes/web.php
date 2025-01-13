@@ -65,6 +65,7 @@ Route::middleware('auth')
 Route::middleware('auth')->group(function(){
     Route::get('/transaction',[TransactionController::class, 'index'])->name('transaction');
     Route::get('/transaction/show',[TransactionController::class, 'show'])->name('transaction.show');
+    Route::post('/transaction/chat',[TransactionController::class, 'chat'])->name('transaction.chat');
 });
 
 //掲示板
