@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TextbookController;
 use App\Http\Controllers\MyPage\ProfileController;
 use App\Http\Controllers\MyPage\SoldItemsController;
+use App\Http\Controllers\MyPage\BoughtItemsController;
 use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ItemController;
@@ -36,6 +37,8 @@ Route::prefix('mypage')
         Route::post('edit-profile', [ProfileController::class,'editProfile'])->name('mypage.edit-profile');
         //出品した教科書一覧画面
         Route::get('sold-items', [SoldItemscontroller::class,'showSoldItems'])->name('mypage.sold-items');
+        //購入した教科書一覧画面
+        Route::get('bought-items', [BoughtItemsController::class,'showBoughtItems'])->name('mypage.bought-items');
     });
 
 //大学と学部のセレクトボックスの実装
