@@ -70,7 +70,7 @@ class User extends Authenticatable
     }
 
     //掲示板
-	public function postMessages()
+    public function postMessages()
     {
         return $this->hasMany(PostMessage::class);
     }
@@ -78,5 +78,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(PostRoomUser::class);
     }
-
 }

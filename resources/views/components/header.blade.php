@@ -27,6 +27,11 @@
             'icon' => 'fas fa-store-alt',
         ],
         [
+            'label' => '購入した商品',
+            'href' => route('mypage.bought-items'),
+            'icon' => 'fas fa-shopping-bag',
+        ],
+        [
             'label' => '取引一覧',
             'href' => route('transaction'),
             'icon' => 'fas fa-comments',
