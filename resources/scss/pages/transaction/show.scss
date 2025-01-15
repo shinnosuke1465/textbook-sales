@@ -1,14 +1,13 @@
 @use "../../object/utility/contents_style" as *;
 
 .pg-transaction-chatPage{
-    @apply max-w-[1280px] mx-auto w-full px-9 pt-28 h-screen;
+    @apply max-w-[1280px] mx-auto w-full px-9 pt-36 h-screen;
         min-height: calc(-64px + 100vh);
 }
 
 .pg-transaction-chatPage-inner{
     @apply grid h-full;
     grid-template-columns: repeat(12, 1fr);
-    overflow: hidden;
 
     & .c-headline-base{
         @apply text-left pt-0;

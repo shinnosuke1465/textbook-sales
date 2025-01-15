@@ -101,6 +101,18 @@
     </form>
 
     <nav class="c-header__navigation" id="navbarSupportedContent">
+        {{-- 掲示板遷移ボタン --}}
+        @auth
+            <a href="{{ route('posts.show') }}" type="submit" class="c-header__chat">
+                <i class="fa-regular fa-message"></i>
+                <div class="c-header__chat-bottom">チャットを開く</div>
+            </a>
+        @else
+            <div class="c-header__chat">
+                <i class="fa-regular fa-message"></i>
+                <div class="c-header__chat-bottom c-header__chat-bottom--02">ログインしてください</div>
+            </div>
+        @endauth
         <ul class="c-header__list">
             @guest
                 {{-- 非ログイン --}}
@@ -126,6 +138,19 @@
                         @endif
                         {{ $user->name }} <span class="caret"></span>
                     </a>
+                    <div class="c-header__money">
+                        <div class="c-header__money-list">
+                            <div class="col">売上金</div>
+                            <div class="col-auto">
+                                <i class="fas fa-yen-sign"></i>
+                                <span class="ml-1">{{ number_format($user->sales) }}</span>
+                            </div>
+                        </div>
+                        <div class="c-header__money-list">
+                            <div class="col">出品数</div>
+                            <div class="col-auto">{{ number_format($user->soldTextbooks->count()) }} 個</div>
+                        </div>
+                    </div>
                     <div class="c-header-drop js-drop">
                         <div class="c-header-drop__content" role="none">
                             @foreach ($user_items as $item)

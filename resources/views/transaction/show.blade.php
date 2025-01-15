@@ -102,6 +102,7 @@
         </div>
     </div>
     <script>
+        var current_user_avatar = "{{ Auth::user()->avatar_file_name ? asset('storage/images/' . Auth::user()->avatar_file_name) : '/images/avatar-default.svg' }}";
         var chat_room_id = {{ $chat_room_id }};
         var user_id = {{ Auth::user()->id }};
         var current_user_name = "{{ Auth::user()->name }}";

@@ -3,11 +3,11 @@
     box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
 
     &__logo{
-        @apply w-32 font-bold text-xl;
+        @apply w-36 font-bold text-xl;
     }
 
     &__item{
-       @apply flex items-center relative;
+       @apply flex items-center relative gap-4;
     }
 
     &__anchor{
@@ -23,7 +23,45 @@
     }
 
     &__navigation{
-        @apply w-28 h-full flex flex-col items-center justify-center;
+        @apply w-96 h-full flex flex-row items-center justify-center gap-7;
+    }
+
+    &__chat{
+        @apply p-3 relative;
+
+        &:hover{
+            .c-header__chat-bottom{
+                @apply inline-block;
+            }
+        }
+    }
+
+    &__chat-bottom{
+        @apply absolute -bottom-[4.5rem] -left-11 hidden rounded-md shadow-lg ring-1 ring-black bg-neutral-700 text-white w-32 p-2;
+
+        &--02{
+            @apply w-44 -left-[4.25rem];
+        }
+
+        &:before{
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom: 15px solid #404040;  /* 好みで色を変えてください */
+            border-right: 15px solid transparent;
+            border-left: 15px solid transparent;
+        }
+    }
+
+    &__money{
+        @apply bg-[#f5f5f5] rounded-lg py-1 px-[6px] inline-block;
+        border: 1px solid #ccc;
+    }
+
+    &__money-list{
+        @apply flex items-center gap-3;
     }
 
 }
@@ -32,7 +70,7 @@
     @apply w-full;
 
     &__content{
-        @apply lg:flex lg:justify-around gap-24 w-full items-center;
+        @apply lg:flex gap-12 w-full items-center;
     }
 
     &__search{
@@ -62,7 +100,7 @@
     @apply flex gap-4;
 
     & > select{
-        @apply pl-6 pr-8 py-3 hover:bg-[#f5f5f5] rounded-sm;
+        @apply pl-4 pr-8 py-3 hover:bg-[#f5f5f5] rounded-sm;
         border: 1px solid #ccc;
     }
 }
@@ -91,7 +129,7 @@
 }
 
 .c-header-drop{
-    @apply origin-top-right top-10 -left-24 lg:-left-24 absolute rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white hidden w-48;
+    @apply origin-top-right top-14 -left-24 lg:-left-4 absolute rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white hidden w-48;
 
     &__content{
         @apply py-1 flex flex-col;

@@ -85,14 +85,30 @@ class TransactionController extends Controller
             $chat->message = $validated['message'];
             $chat->save();
 
-            // イベントを発火
-            event(new ChatPusher($chat));
+            // ユーザー情報を取得
+            $user = User::findOrFail($validated['user_id']);
 
-            // 成功レスポンス
-            return response()->json(['message' => 'Message sent successfully!', 'data' => $chat], 200);
+            // イベントを発火（メッセージとユーザー情報を送信）
+            event(new ChatPusher($chat, $user));
+
+            // 成功レスポンス（クライアントに必要なデータを返す）
+            return response()->json([
+                'message' => 'Message sent successfully!',
+                'data' => [
+                    'chat_room_id' => $chat->chat_room_id,
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                    'avatar_file_name' => $user->avatar_file_name ?? '/images/avatar-default.svg',
+                    'message' => $chat->message,
+                    'created_at' => $chat->created_at->format('Y-m-d H:i:s'),
+                ],
+            ], 200);
         } catch (\Exception $e) {
             // エラーハンドリング
-            return response()->json(['error' => 'Failed to send message.', 'details' => $e->getMessage()], 500);
+            return response()->json([
+                'error' => 'Failed to send message.',
+                'details' => $e->getMessage(),
+            ], 500);
         }
     }
 }
