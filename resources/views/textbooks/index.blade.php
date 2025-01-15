@@ -27,12 +27,6 @@
                         'pagination' => \Request::get('pagination'),
                     ])->links() }}
             </div>
-            {{-- 掲示板遷移ボタン --}}
-            @auth
-                <a href="{{ route('posts.show') }}" type="submit" class="chatForm_btn">チャットを開く</a>
-            @else
-                <p class="text-gray-500">チャットを開くにはログインしてください。</p>
-            @endauth
         </div>
     </div>
 @endsection

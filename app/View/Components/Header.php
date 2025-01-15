@@ -10,8 +10,8 @@ use App\Models\University;
 
 class Header extends Component
 {
-
     public $universities;
+    public $user;
 
     /**
      * Create a new component instance.
@@ -20,6 +20,9 @@ class Header extends Component
     {
         // universities テーブルと faculties リレーションを取得
         $this->universities = University::with('faculties')->get();
+
+        // 現在の認証済みユーザーを取得
+        $this->user = Auth::user();
     }
 
     /**
@@ -27,10 +30,6 @@ class Header extends Component
      */
     public function render(): View|Closure|string
     {
-        $user = Auth::user();
-
-     //以下のコードを追加
-       return view('components.header')
-           ->with('user', $user);
+        return view('components.header');
     }
 }

@@ -1,4 +1,4 @@
-<a class="c-sold-item" href="{{ route('textbooks.edit', [$item->id]) }}">
+<div class="c-sold-item">
     <div class="c-sold-item__image-area">
     @include('components.thumbnail', [
         'type' => 'textbooks',
@@ -24,4 +24,4 @@
             <span>{{ $item->created_at->format('Y年n月j日 H:i') }}</span>
         </div>
     </div>
-</a>
+</ぢ>
