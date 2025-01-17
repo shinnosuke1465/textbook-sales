@@ -46,9 +46,8 @@
 }
 
 .pg-transaction-chatPage-inner-message{
-    @apply min-w-0 block;
+    @apply min-w-0 flex flex-col;
     grid-column: span 8;
-    flex-grow: 1; /* メッセージエリアが余った高さを占める */
     overflow-y: auto;
 
     &__input {
@@ -66,6 +65,10 @@
 
     .message{
         @apply mt-4 pl-12 relative;
+    }
+
+    .messagesArea{
+        @apply flex-grow;
     }
 
     .commonMessage{
