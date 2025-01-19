@@ -2,31 +2,31 @@
 
 @use "../../object/utility/contents_style" as *;
 
-.pg-transaction-inner{
+.pg-transaction-inner {
     @apply max-w-[50rem] mx-auto mt-7;
 }
 
-.pg-transaction-inner-list{
+.pg-transaction-inner-list {
     @apply flex flex-col;
 }
 
-.pg-transaction-inner-list-item{
+.pg-transaction-inner-list-item {
     @apply py-7 flex items-center justify-between pr-4 hover:bg-gray-100;
     border-bottom: 1px solid #ccc;
 
-    .c-thumbnail{
+    .c-thumbnail {
         @apply max-w-20
     }
 
-    &__left{
+    &__left {
         @apply flex items-center gap-4;
     }
 
-    &__info{
+    &__info {
         @apply flex gap-2 items-center;
     }
 
-    &__button{
+    &__button {
         @apply bg-[#ff6574] text-white rounded-lg p-2 font-bold;
     }
 }
