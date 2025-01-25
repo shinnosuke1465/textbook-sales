@@ -1,144 +1,146 @@
-.c-header{
+.c-header {
     @apply fixed z-30 top-0 left-0 w-full flex items-center justify-between lg:px-10 px-[7.2%] lg:h-20 h-16 bg-white gap-4;
     box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
 
-    &__logo{
+    &__logo {
         @apply w-36 font-bold text-xl;
     }
 
-    &__item{
-       @apply flex items-center relative gap-4;
+    &__item {
+        @apply flex items-center relative gap-4;
     }
 
-    &__anchor{
+    &__anchor {
         @apply flex items-center flex-col;
     }
 
-    &__image{
+    &__image {
         @apply w-9 h-9;
 
-        & > img{
+        &>img {
             @apply rounded-full;
         }
     }
 
-    &__navigation{
+    &__navigation {
         @apply w-96 h-full flex flex-row items-center justify-center gap-7;
     }
 
-    &__chat{
+    &__chat {
         @apply p-3 relative;
 
-        &:hover{
-            .c-header__chat-bottom{
+        &:hover {
+            .c-header__chat-bottom {
                 @apply inline-block;
             }
         }
     }
 
-    &__chat-bottom{
+    &__chat-bottom {
         @apply absolute -bottom-[4.5rem] -left-11 hidden rounded-md shadow-lg ring-1 ring-black bg-neutral-700 text-white w-32 p-2;
 
-        &--02{
+        &--02 {
             @apply w-44 -left-[4.25rem];
         }
 
-        &:before{
+        &:before {
             content: '';
             position: absolute;
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            border-bottom: 15px solid #404040;  /* 好みで色を変えてください */
+            border-bottom: 15px solid #404040;
+            /* 好みで色を変えてください */
             border-right: 15px solid transparent;
             border-left: 15px solid transparent;
         }
     }
 
-    &__money{
+    &__money {
         @apply bg-[#f5f5f5] rounded-lg py-1 px-[6px] inline-block;
         border: 1px solid #ccc;
     }
 
-    &__money-list{
+    &__money-list {
         @apply flex items-center gap-3;
     }
 
 }
 
-.c-header-form{
+.c-header-form {
     @apply w-full;
 
-    &__content{
+    &__content {
         @apply lg:flex gap-12 w-full items-center;
     }
 
-    &__search{
-        @apply  flex space-x-2 items-center w-full max-w-[31rem] relative;
+    &__search {
+        @apply flex space-x-2 items-center w-full max-w-[31rem] relative;
     }
 
-    &__button{
+    &__button {
         @apply ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded h-10 flex w-24;
     }
 
-    &__box{
+    &__box {
         @apply flex relative w-full;
     }
 
-    &__input{
+    &__input {
         @apply border-gray-500 py-2 w-full rounded-sm;
         border: 1px solid #ccc;
         background-color: #f5f5f5;
     }
 
-    &__reset{
+    &__reset {
         @apply rounded-full bg-gray-400 text-white w-6 h-6 items-center justify-center absolute top-2 right-2;
     }
 }
 
-.c-header-form__select{
+.c-header-form__select {
     @apply flex gap-4;
 
-    & > select{
+    &>select {
         @apply pl-4 pr-8 py-3 hover:bg-[#f5f5f5] rounded-sm;
         border: 1px solid #ccc;
     }
 }
 
-.c-header-form-toggle-wrapper{
+.c-header-form-toggle-wrapper {
     @apply absolute -bottom-[5.25rem] left-0 p-4 rounded-lg shadow-lg bg-white hidden;
     width: calc(100% - 97px);
     margin-left: 0 !important;
-    &.open{
+
+    &.open {
         @apply block;
     }
 }
 
-.c-header-form-toggle-wrapper-list{
+.c-header-form-toggle-wrapper-list {
     @apply flex flex-col gap-4;
 }
 
-.c-header-form-toggle-wrapper-list-item{
+.c-header-form-toggle-wrapper-list-item {
     border-bottom: 1px solid;
     @apply pb-4 pl-2;
 
-    &__anchor{
+    &__anchor {
         @apply relative block w-full;
         @apply after:content-[">"] after:bg-contain after:w-4 after:h-[1.6rem] after:absolute after:right-0;
     }
 }
 
-.c-header-drop{
+.c-header-drop {
     @apply origin-top-right top-14 -left-24 lg:-left-4 absolute rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white hidden w-48;
 
-    &__content{
+    &__content {
         @apply py-1 flex flex-col;
     }
 
-    &__item{
+    &__item {
         @apply px-2 py-2;
 
-        & > i{
+        &>i {
             @apply w-8 text-left;
         }
     }
