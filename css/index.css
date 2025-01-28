@@ -71,6 +71,7 @@
 }
 
 .pg-transaction-inner {
+  @apply px-[7%] lg:px-0;
   @apply max-w-[50rem] mx-auto mt-7;
 }
 

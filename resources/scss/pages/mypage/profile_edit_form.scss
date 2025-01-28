@@ -1,12 +1,22 @@
 @use "../../object/utility/contents_style" as *;
 
+.pg-profile{
+    &__content{
+        @include u-sp-contents-padding;
+    }
+}
+
 .pg-profile-form {
     @include u-512px-contents-width;
 
     &__avatar{
-        @apply flex items-center flex-row-reverse justify-between flex-wrap mt-8;
+        @apply w-full lg:w-auto justify-center  flex items-center flex-row-reverse flex-wrap mt-8;
         & > label{
-            @apply w-36 h-36 inline-block;
+            @apply mt-4  w-36 h-36 inline-block;
+        }
+
+        & > input {
+            @apply text-sm lg:text-lg;
         }
     }
 

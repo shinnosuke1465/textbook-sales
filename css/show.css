@@ -58,7 +58,7 @@
   @apply mt-4 pl-12 relative;
 }
 .pg-transaction-chatPage-inner-message .messagesArea {
-  @apply fleg;
+  @apply flex-grow h-[30rem] h-auto overflow-y-scroll lg:overflow-y-auto;
 }
 .pg-transaction-chatPage-inner-message .commonMessage {
   @apply w-full p-2 font-normal leading-snug mt-1 bg-[#f5f5f5] rounded-xl;
