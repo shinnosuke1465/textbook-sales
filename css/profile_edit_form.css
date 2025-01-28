@@ -1,11 +1,18 @@
+.pg-profile__content {
+  @apply px-[7%] lg:px-0;
+}
+
 .pg-profile-form {
   @apply max-w-[32rem] mx-auto;
 }
 .pg-profile-form__avatar {
-  @apply flex items-center flex-row-reverse justify-between flex-wrap mt-8;
+  @apply w-full lg:w-auto justify-center  flex items-center flex-row-reverse flex-wrap mt-8;
 }
 .pg-profile-form__avatar > label {
-  @apply w-36 h-36 inline-block;
+  @apply mt-4  w-36 h-36 inline-block;
+}
+.pg-profile-form__avatar > input {
+  @apply text-sm lg:text-lg;
 }
 .pg-profile-form__avatar-image > .c-thumbnail > img {
   @apply rounded-full;

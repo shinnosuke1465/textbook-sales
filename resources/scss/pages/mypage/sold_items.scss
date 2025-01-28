@@ -11,33 +11,40 @@
 }
 
 .c-sold-item {
-    @apply flex border gap-4;
+    @apply flex border gap-1 lg:gap-4 lg:h-[200px];
 
     &__text-area {
         @apply py-3;
     }
 
     &__image-area{
-        @apply w-[200px] h-[200px];
+        @apply lg:w-[200px] lg:h-[200px] w-[150px] h-[150px];
+        .c-thumbnail{
+            display: flex;
+        }
     }
 
     &__info{
-        @apply flex gap-3 items-center;
+        @apply text-xs lg:text-lg flex gap-3 items-center;
     }
 
     &__info-state {
-        @apply bg-green-500 text-white text-sm font-semibold px-2 py-1 rounded-full;
+        @apply bg-green-500 text-white text-xs lg:text-base font-semibold px-2 py-1 rounded-full;
     }
 
     &__info-sell {
-        @apply bg-gray-800 text-white text-sm font-semibold px-2 py-1 rounded-full;
+        @apply bg-gray-800 text-white text-[10px] lg:text-base font-semibold px-2 py-1 rounded-full;
     }
 
     &__title{
-        @apply mt-2 font-bold text-2xl;
+        @apply mt-2 font-bold lg:text-2xl;
     }
 
     &__price{
-        @apply mt-4;
+        @apply lg:mt-4;
+
+        & > span{
+            @apply text-xs lg:text-base;
+        }
     }
 }

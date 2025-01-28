@@ -3,6 +3,7 @@
 @use "../../object/utility/contents_style" as *;
 
 .pg-transaction-inner {
+    @include u-sp-contents-padding;
     @apply max-w-[50rem] mx-auto mt-7;
 }
 

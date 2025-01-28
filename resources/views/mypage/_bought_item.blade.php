@@ -24,4 +24,4 @@
             <span>{{ $item->created_at->format('Y年n月j日 H:i') }}</span>
         </div>
     </div>
-</ぢ>
+</div>

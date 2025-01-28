@@ -12,7 +12,7 @@
     }
 
     &__list{
-        @apply grid gap-4 lg:grid-cols-5 md:grid-cols-4;
+        @apply grid gap-4 md:grid-cols-3 lg:grid-cols-5 ;
     }
 }
 
@@ -49,10 +49,10 @@
     }
 
     &__label-text{
-        @apply  absolute text-lg top-[calc(-5px)] left-[calc(-5px)] rotate-[-45deg] text-white font-bold sm:top-[-8px] md:text-xs lg:top-[12px] lg:left-[7px] lg:text-lg xl:text-xl;
+        @apply  absolute text-lg top-[calc(11px)] left-[calc(2px)] rotate-[-45deg] text-white font-bold sm:top-[-8px] md:text-xs lg:top-[12px] lg:left-[7px] lg:text-lg xl:text-xl;
     }
 
     &__image-area{
-        @apply w-[225px] h-[225px];
+        @apply max-w-[225px] w-full lg:w-[225px] h-[225px];
     }
 }

@@ -1,5 +1,11 @@
 @use "../../object/utility/contents_style" as *;
 
+.pg-textbook-create{
+    &__content{
+        @include u-sp-contents-padding;
+    }
+}
+
 .pg-textbook-create-form {
     @include u-512px-contents-width;
 

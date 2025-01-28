@@ -6,8 +6,10 @@
 }
 
 .pg-transaction-chatPage-inner{
-    @apply grid h-full;
-    grid-template-columns: repeat(12, 1fr);
+    @apply flex flex-col lg:grid h-full;
+    @include lg{
+        grid-template-columns: repeat(12, 1fr);
+    }
 
     & .c-headline-base{
         @apply text-left pt-0;
@@ -68,7 +70,7 @@
     }
 
     .messagesArea{
-        @apply flex-grow;
+        @apply flex-grow h-[30rem] lg:h-auto overflow-y-scroll lg:overflow-y-auto;
     }
 
     .commonMessage{
