@@ -13,3 +13,4 @@ import './headerResetButton';
 import './facultySearch';
 import './itemSearch';
 import './chat';
+import './header';

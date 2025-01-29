@@ -12,7 +12,7 @@
     }
 
     &__list{
-        @apply grid gap-4 md:grid-cols-3 lg:grid-cols-5 ;
+        @apply grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 ;
     }
 }
 
@@ -21,12 +21,6 @@
     &__anchor{
         @apply w-full overflow-hidden inline-block;
     }
-
-    &__image-area{
-        @apply relative rounded-sm flex;
-        border: 1px solid #ccc;
-    }
-
     &__price{
         @apply absolute py-2 px-3 left-0 bottom-3 text-white;
         background-color: rgba(0, 0, 0, 0.70)
@@ -53,6 +47,8 @@
     }
 
     &__image-area{
-        @apply max-w-[225px] w-full lg:w-[225px] h-[225px];
+        @apply max-w-[225px] w-full h-full lg:w-[225px] lg:h-[225px] relative rounded-sm flex;
+        border: 1px solid #ccc;
+        aspect-ratio: 1 / 1;
     }
 }

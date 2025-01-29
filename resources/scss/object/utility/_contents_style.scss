@@ -1,3 +1,5 @@
+@use "../../global/variables/breakpoints" as *;
+
 // コンテンツ幅
 
 @mixin u-sp-contents-padding {
@@ -26,7 +28,6 @@
 }
 
 // メディアクエリ
-@use "../variables/_breakpoints.scss" as *;
 
 /// min-width : 640px のメディアクエリ
 /// スマホの横置き等
