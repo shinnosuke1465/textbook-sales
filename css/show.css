@@ -1,12 +1,16 @@
 @charset "UTF-8";
 .pg-transaction-chatPage {
-  @apply max-w-[1280px] mx-auto w-full px-9 pt-36 h-screen;
+  @apply max-w-[1280px] mx-auto w-full px-9 pt-36 lg:h-screen;
   min-height: calc(-64px + 100vh);
 }
 
 .pg-transaction-chatPage-inner {
-  @apply grid h-full;
-  grid-template-columns: repeat(12, 1fr);
+  @apply flex flex-col lg:grid h-full;
+}
+@media (min-width: 1024px) {
+  .pg-transaction-chatPage-inner {
+    grid-template-columns: repeat(12, 1fr);
+  }
 }
 .pg-transaction-chatPage-inner .c-headline-base {
   @apply text-left pt-0;
@@ -14,10 +18,14 @@
 
 .pg-transaction-chatPage-inner-content {
   @apply min-w-0 block relative pr-12;
-  grid-column: span 4;
-  position: -webkit-sticky;
-  position: sticky; /* スクロール時に固定 */
-  top: 0;
+}
+@media (min-width: 1024px) {
+  .pg-transaction-chatPage-inner-content {
+    grid-column: span 4;
+    position: -webkit-sticky;
+    position: sticky; /* スクロール時に固定 */
+    top: 0;
+  }
 }
 .pg-transaction-chatPage-inner-content__button {
   @apply absolute -top-9 left-0;
@@ -42,7 +50,11 @@
 .pg-transaction-chatPage-inner-message {
   @apply min-w-0 flex flex-col;
   grid-column: span 8;
-  overflow-y: auto;
+}
+@media (min-width: 1024px) {
+  .pg-transaction-chatPage-inner-message {
+    overflow-y: auto;
+  }
 }
 .pg-transaction-chatPage-inner-message__input {
   @apply w-full rounded-md h-25 p-3;
@@ -58,7 +70,7 @@
   @apply mt-4 pl-12 relative;
 }
 .pg-transaction-chatPage-inner-message .messagesArea {
-  @apply flex-grow h-[30rem] h-auto overflow-y-scroll lg:overflow-y-auto;
+  @apply flex-grow h-[30rem]  lg:h-auto overflow-y-scroll lg:overflow-y-auto;
 }
 .pg-transaction-chatPage-inner-message .commonMessage {
   @apply w-full p-2 font-normal leading-snug mt-1 bg-[#f5f5f5] rounded-xl;

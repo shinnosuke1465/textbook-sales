@@ -50,7 +50,7 @@
         教科書販売
     </a>
 
-    <form method="get" action="{{ route('textbooks.index') }}" class="c-header-form">
+    <form method="get" action="{{ route('textbooks.index') }}" class="c-header-form pc-sm-style js-accordion-target">
         <div class="c-header-form__content">
             <div class="c-header-form__search">
                 <div class="c-header-form__box">
@@ -101,6 +101,10 @@
     </form>
 
     <nav class="c-header__navigation" id="navbarSupportedContent">
+        <button class="c-header__chat c-header__chat--search js-accordion">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="c-header__chat-bottom">検索</div>
+        </button>
         {{-- 掲示板遷移ボタン --}}
         @auth
             <a href="{{ route('posts.show') }}" type="submit" class="c-header__chat">

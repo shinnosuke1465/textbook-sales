@@ -156,12 +156,13 @@ class TextbookController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
         //universitiesテーブルと外部キー制約であるfacultiesテーブルも同時に取得
         $universities = University::with('faculties')->get();
         //商品の状態は sort_no の順に並べ替えられる
         $conditions = ItemCondition::orderBy('sort_no')->get();
 
-        return view('textbooks.create', compact('universities', 'conditions'));
+        return view('textbooks.create', compact('universities', 'conditions', 'user'));
     }
 
     /**

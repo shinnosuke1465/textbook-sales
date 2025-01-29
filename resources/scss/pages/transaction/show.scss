@@ -1,7 +1,7 @@
 @use "../../object/utility/contents_style" as *;
 
 .pg-transaction-chatPage{
-    @apply max-w-[1280px] mx-auto w-full px-9 pt-36 h-screen;
+    @apply max-w-[1280px] mx-auto w-full px-9 pt-36 lg:h-screen;
         min-height: calc(-64px + 100vh);
 }
 
@@ -18,9 +18,11 @@
 
 .pg-transaction-chatPage-inner-content{
     @apply min-w-0 block relative pr-12;
-    grid-column: span 4;
-    position: sticky; /* スクロール時に固定 */
-    top: 0;
+    @include lg{
+        grid-column: span 4;
+        position: sticky; /* スクロール時に固定 */
+        top: 0;
+    }
 
     &__button{
         @apply absolute -top-9 left-0;
@@ -50,7 +52,9 @@
 .pg-transaction-chatPage-inner-message{
     @apply min-w-0 flex flex-col;
     grid-column: span 8;
-    overflow-y: auto;
+    @include lg{
+        overflow-y: auto;
+    }
 
     &__input {
         @apply w-full rounded-md h-25 p-3;
@@ -70,7 +74,7 @@
     }
 
     .messagesArea{
-        @apply flex-grow h-[30rem] lg:h-auto overflow-y-scroll lg:overflow-y-auto;
+        @apply flex-grow h-[30rem]  lg:h-auto overflow-y-scroll lg:overflow-y-auto;
     }
 
     .commonMessage{

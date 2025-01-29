@@ -17,13 +17,13 @@
             @include('components.headline_base', [
                 'title' => '商品を出品する',
             ])
-            <form method="POST" action="{{ route('textbooks.store') }}" class="pg-textbook-create-form" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('textbooks.store') }}" class="pg-textbook-create-form"
+                enctype="multipart/form-data">
                 @csrf
                 {{-- 商品画像 --}}
                 <div class="pg-textbook-create-form__textbook">
                     <p class="pg-textbook-create-form__textbook-text">画像</p>
-                    <input type="file" name="textbook"accept="image/png,image/jpeg,image/gif"
-                        id="textbook" />
+                    <input type="file" name="textbook"accept="image/png,image/jpeg,image/gif" id="textbook" />
                     <label for="textbook">
                         <div class="pg-textbook-create-form__images js-userImgPreview"></div>
                     </label>
@@ -53,36 +53,19 @@
                     @enderror
                 </div>
 
-                {{-- 大学選択 --}}
                 <div class="pg-textbook-create-form__university">
-                    <label for="university_id" class="leading-7 text-sm text-gray-600">大学</label>
-                    <select name="university_id" id="university_id" class="@error('university_id') is-invalid @enderror">
-                        <option value="">選択してください</option>
-                        @foreach ($universities as $university)
-                            <option value="{{ $university->id }}"
-                                {{ old('university') == $university->id ? 'selected' : '' }}>
-                                {{ $university->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('university_id')
-                        <span class="invalid-feedback text-red-500" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <label for="university_name" class="leading-7 text-sm text-gray-600">大学</label>
+                    <input type="text" name="university_name" id="university_name"
+                        class="w-full bg-gray-100 border rounded px-4 py-2" value="{{ $user->university->name }}" readonly>
                 </div>
 
-                {{-- 学部選択 --}}
                 <div class="pg-textbook-create-form__faculty">
-                    <label for="faculty_id" class="leading-7 text-sm text-gray-600">学部</label>
-                    <select name="faculty_id" id="faculty_id" class="@error('faculty_id') is-invalid @enderror">
-                    </select>
-                    @error('faculty_id')
-                        <span class="invalid-feedback text-red-500" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <label for="faculty_name" class="leading-7 text-sm text-gray-600">学部</label>
+                    <input type="text" name="faculty_name" id="faculty_name"
+                        class="w-full bg-gray-100 border rounded px-4 py-2" value="{{ $user->faculty->name }}" readonly>
                 </div>
+                <input type="hidden" name="university_id" value="{{ $user->university->id }}">
+                <input type="hidden" name="faculty_id" value="{{ $user->faculty->id }}">
 
                 {{-- 商品の状態 --}}
                 <div class="pg-textbook-create-form__condition">
@@ -115,8 +98,8 @@
                 </div>
 
                 @include('components.button_base', [
-                'text' => '出品する',
-                'type' => 'create'
+                    'text' => '出品する',
+                    'type' => 'create',
                 ])
             </form>
         </div>
