@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class
         ]);
 
-        Textbook::factory(3)->create();
-        Stock::factory(3)->create();
+        // Textbook::factory(3)->create();
+        // Stock::factory(3)->create();
     }
 }
