@@ -142,7 +142,8 @@
     }
 
     &__item {
-        @apply px-2 py-2;
+        @apply px-2 py-2 grid items-center;
+        grid-template-columns: 35px 1fr;
 
         &>i {
             @apply w-8 text-left;
