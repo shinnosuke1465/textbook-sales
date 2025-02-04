@@ -25,7 +25,9 @@ $(document).ready(function () {
             $facultySelect.empty();
             // 「選択してください」か、あるいは学部も「その他」オンリーにする
             $facultySelect.append('<option value="">選択してください</option>');
-            $facultySelect.append('<option value="__other__">その他（新規追加）</option>');
+            $facultySelect.append(
+                '<option value="__other__">その他（新規追加）</option>'
+            );
 
             // 大学名入力欄を表示してクリア
             $newUniversityWrapper.show();
@@ -46,8 +48,12 @@ $(document).ready(function () {
             } else {
                 // 大学を未選択に戻した場合
                 $facultySelect.empty();
-                $facultySelect.append('<option value="">選択してください</option>');
-                $facultySelect.append('<option value="__other__">その他（新規追加）</option>');
+                $facultySelect.append(
+                    '<option value="">選択してください</option>'
+                );
+                $facultySelect.append(
+                    '<option value="__other__">その他（新規追加）</option>'
+                );
             }
         }
     });
@@ -76,21 +82,31 @@ $(document).ready(function () {
             method: "GET",
             dataType: "json",
             success: function (data) {
-                // <select>を空にする
+                // <select> をクリア
                 $facultySelect.empty();
 
-                // 先頭に「選択してください」
-                $facultySelect.append('<option value="">選択してください</option>');
+                // 先頭に「選択してください」を追加
+                $facultySelect.append(
+                    '<option value="">選択してください</option>'
+                );
+
+                // 重複防止用のSet
+                const uniqueFaculties = new Set();
 
                 // Ajaxで取得した既存学部を追加
                 data.forEach(function (faculty) {
-                    $facultySelect.append(
-                        new Option(faculty.name, faculty.id)
-                    );
+                    if (!uniqueFaculties.has(faculty.name)) {
+                        uniqueFaculties.add(faculty.name);
+                        $facultySelect.append(
+                            new Option(faculty.name, faculty.id)
+                        );
+                    }
                 });
 
                 // 最後に「その他（新規追加）」を追加
-                $facultySelect.append('<option value="__other__">その他（新規追加）</option>');
+                $facultySelect.append(
+                    '<option value="__other__">その他（新規追加）</option>'
+                );
             },
             error: function (xhr, status, error) {
                 console.error("学部一覧の取得に失敗しました:", error);
