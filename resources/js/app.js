@@ -1,5 +1,6 @@
 import $ from 'jquery';
 window.$ = window.jQuery = $;
+import "@fortawesome/fontawesome-free/js/all.js";
 
 import './bootstrap';
 import './register';
