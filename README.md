@@ -45,6 +45,7 @@ GitHub：https://github.com/shinnosuke1465/textbook-sales
 
 ### ログイン画面
 会員登録で大学・学部の選択必須 (現在名古屋の大学のみ登録してあるが、大学リストに在籍している大学がなければ新たに追加可能)。↓
+
 ![register.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3457929/62485c76-e420-a7cb-96f9-a0d03b7bc5dc.gif)
 
 ### 商品詳細画面
