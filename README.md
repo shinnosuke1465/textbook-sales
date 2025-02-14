@@ -75,7 +75,7 @@ Docker / Docker compose(開発環境)
 Xserver
 #### その他の使用技術
 git(gitHub) / Visual Studio Code
-Drawio(AWS構成図)
+Drawio
 
 ## 3. 実装機能
 |             |*機能*                  |
