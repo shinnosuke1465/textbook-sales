@@ -15,7 +15,8 @@ GitHub：https://github.com/shinnosuke1465/textbook-sales
 出品者は不要になった教科書を販売し、購入者は必要な教科書を手頃な価格で入手できます。
 
 ### トップページ
-![スクリーンショット 2025-02-09 19.26.04.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3457929/fca4e087-4dc1-6409-d497-cca09025dd52.png)
+<img width="1403" alt="スクリーンショット 2025-05-22 10 02 22" src="https://github.com/user-attachments/assets/95125c8e-2468-48d5-996c-fb8d19dd3d82" />
+
 
 ### 検索フォーム
 教科書は、検索フォームからキーワード、大学名、学部名、教科書名の項目から絞り込んで検索することができます。↓
